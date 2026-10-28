@@ -3,7 +3,7 @@
 > 각 프롬프트는 공통 스타일 문장까지 들어 있는 완성본입니다. 코드 블록 오른쪽 위의 복사 버튼(GitHub·Obsidian·VS Code 미리보기)으로 복사해 ChatGPT에 그대로 붙여 넣으세요.
 > 저장 위치: `public/regions/geumsan/art/` · 파일 이름을 그대로 쓰면 게임에 바로 들어갑니다.
 
-현재 상태: 그림 47장 중 **10장 있음**, 37장 필요 (✅ 있음 · ⬜ 필요)
+현재 상태: 그림 47장 중 **19장 있음**, 28장 필요 (✅ 있음 · ⬜ 필요)
 
 ## 목차
 
@@ -57,15 +57,15 @@
 | ⬜ | `mg-antenna.png` | 위성 신호: 안테나 |
 | ⬜ | `mg-satellite.png` | 위성 신호: 위성 |
 | ⬜ | `mg-block.png` | 위성 신호: 산 장애물 |
-| ⬜ | `ui-title-bg.png` | 첫 화면 배경 |
-| ⬜ | `ui-bus.png` | 금산 버스 아이콘 |
-| ⬜ | `ui-heart.png` | 하트 (가득) |
-| ⬜ | `ui-heart-empty.png` | 하트 (빈칸) |
-| ⬜ | `ui-score.png` | 점수 아이콘 |
-| ⬜ | `ui-hint.png` | 힌트 아이콘 |
-| ⬜ | `ui-stamp.png` | 도장 자국 |
-| ⬜ | `ui-trophy.png` | 완주 트로피 |
-| ⬜ | `ui-paper.png` | 카드 바탕 종이 (반복 무늬) |
+| ✅ | `ui-title-bg.png` | 첫 화면 배경 |
+| ✅ | `ui-bus.png` | 금산 버스 아이콘 |
+| ✅ | `ui-heart.png` | 하트 (가득) |
+| ✅ | `ui-heart-empty.png` | 하트 (빈칸) |
+| ✅ | `ui-score.png` | 점수 아이콘 |
+| ✅ | `ui-hint.png` | 힌트 아이콘 |
+| ✅ | `ui-stamp.png` | 도장 자국 |
+| ✅ | `ui-trophy.png` | 완주 트로피 |
+| ✅ | `ui-paper.png` | 카드 바탕 종이 (반복 무늬) |
 
 ## 공통 스타일 문장
 
@@ -939,7 +939,7 @@ No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 
 게임 화면의 버튼·아이콘·배경을 바꿉니다. 파일이 없으면 지금처럼 이모지로 보이고, 넣으면 바로 그림으로 바뀝니다. 아이콘은 작게 보이므로 **단순하고 굵게** 나오는지 확인하세요.
 
-### ⬜ 첫 화면 배경 — `ui-title-bg.png`
+### ✅ 첫 화면 배경 — `ui-title-bg.png`
 
 1536×1024 · 불투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -960,7 +960,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 금산 버스 아이콘 — `ui-bus.png`
+### ✅ 금산 버스 아이콘 — `ui-bus.png`
 
 1024×1024 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -981,7 +981,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 하트 (가득) — `ui-heart.png`
+### ✅ 하트 (가득) — `ui-heart.png`
 
 512×512 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -1002,7 +1002,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 하트 (빈칸) — `ui-heart-empty.png`
+### ✅ 하트 (빈칸) — `ui-heart-empty.png`
 
 512×512 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -1023,7 +1023,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 점수 아이콘 — `ui-score.png`
+### ✅ 점수 아이콘 — `ui-score.png`
 
 512×512 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -1044,7 +1044,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 힌트 아이콘 — `ui-hint.png`
+### ✅ 힌트 아이콘 — `ui-hint.png`
 
 512×512 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -1065,7 +1065,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 도장 자국 — `ui-stamp.png`
+### ✅ 도장 자국 — `ui-stamp.png`
 
 512×512 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -1086,7 +1086,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 완주 트로피 — `ui-trophy.png`
+### ✅ 완주 트로피 — `ui-trophy.png`
 
 1024×1024 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -1107,7 +1107,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 카드 바탕 종이 (반복 무늬) — `ui-paper.png`
+### ✅ 카드 바탕 종이 (반복 무늬) — `ui-paper.png`
 
 1024×1024 · 불투명 배경 · 📎 `style-anchor.png` 첨부
 
