@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>금산판 그림 프롬프트</title>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root { --ivory:#e9d3a8; --cream:#fffaf0; --berry:#d7392f; --leaf:#4f8a3c; --river:#3c7fb8; --ink:#3a2a1c; --muted:#7a6a58; --line:#e6d6b6; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:'Pretendard Variable',Pretendard,system-ui,sans-serif; color:var(--ink); background:#f6ecd6; line-height:1.55; }
+  header { background:var(--leaf); color:#fff; padding:28px 16px 22px; }
+  .wrap { max-width:1080px; margin:0 auto; padding:0 16px; }
+  h1, h2 { font-family:'Jua',sans-serif; font-weight:400; margin:0; }
+  h1 { font-size:34px; }
+  header p { margin:6px 0 0; opacity:.92; }
+  nav { position:sticky; top:0; z-index:5; background:var(--cream); border-bottom:2px solid var(--line); }
+  nav .wrap { display:flex; gap:6px; overflow-x:auto; padding:10px 16px; }
+  nav a { flex:none; text-decoration:none; color:var(--ink); background:#fff; border:2px solid var(--line); border-radius:999px; padding:6px 14px; font-weight:700; font-size:14px; }
+  nav a:hover { border-color:var(--leaf); }
+  .summary { margin:18px 0 0; font-weight:700; }
+  section { margin:30px 0; }
+  section > h2 { font-size:26px; margin-bottom:6px; }
+  .note { background:#fff; border-left:5px solid var(--berry); border-radius:10px; padding:12px 16px; margin:10px 0 16px; }
+  .note ol, .note ul { margin:4px 0; padding-left:20px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:14px; }
+  .card { background:var(--cream); border:2px solid var(--line); border-radius:18px; padding:14px; display:flex; flex-direction:column; gap:8px; }
+  .card.have { border-color:#b9d8a8; }
+  .top { display:flex; gap:12px; align-items:flex-start; }
+  .thumb { flex:none; width:76px; height:76px; border-radius:12px; background:#fff repeating-conic-gradient(#eee 0 25%, #fff 0 50%) 0 0/16px 16px; display:grid; place-items:center; overflow:hidden; font-size:30px; }
+  .thumb img { width:100%; height:100%; object-fit:contain; }
+  .meta { flex:1; min-width:0; }
+  .meta b { font-size:17px; display:block; }
+  code { font-family:ui-monospace,Consolas,monospace; font-size:13px; background:#fff; border:1px solid var(--line); border-radius:6px; padding:1px 6px; }
+  .tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:4px; }
+  .tag { font-size:12px; font-weight:700; border-radius:999px; padding:1px 8px; background:#efe3c8; color:var(--muted); }
+  .tag.have { background:var(--leaf); color:#fff; }
+  .tag.need { background:var(--berry); color:#fff; }
+  .tag.attach { background:var(--river); color:#fff; }
+  pre { margin:0; white-space:pre-wrap; word-break:break-word; background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-size:12.5px; max-height:150px; overflow:auto; font-family:ui-monospace,Consolas,monospace; }
+  .btns { display:flex; gap:8px; }
+  button { font:inherit; cursor:pointer; border:0; border-radius:12px; padding:9px 14px; font-weight:800; }
+  .copy { flex:1; background:var(--berry); color:#fff; box-shadow:0 3px 0 #a92820; }
+  .copy.done { background:var(--leaf); box-shadow:0 3px 0 #356126; }
+  .more { background:#fff; border:2px solid var(--line); }
+  .big { background:var(--river); color:#fff; box-shadow:0 3px 0 #2b5f8a; }
+  footer { padding:30px 16px 50px; color:var(--muted); font-size:14px; }
+  @media (max-width:420px) { .grid { grid-template-columns:1fr; } h1 { font-size:26px; } }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>🎨 「다 같이 돌자, 금산 한 바퀴」 그림 프롬프트</h1>
+  <p>버튼을 누르면 ChatGPT에 그대로 붙여 넣을 프롬프트가 복사됩니다. 공통 스타일 문장까지 다 들어 있어요.</p>
+  <p class="summary" id="summary">그림 확인 중…</p>
+</div></header>
+<nav><div class="wrap" id="nav"></div></nav>
+<main class="wrap" id="main"></main>
+<footer class="wrap">
+  저장 위치: <code>public/regions/geumsan/art/</code> · 파일 이름을 표에 적힌 그대로 저장하면 게임에 바로 들어갑니다.<br>
+  이 페이지는 게임을 실행한 상태(<code>npm run dev</code>)에서 열면 이미 있는 그림을 초록색으로 표시합니다.
+</footer>
+
+<script>
+const ART = 'regions/geumsan/art/';
+
+// 모든 프롬프트 끝에 붙는 공통 스타일 (기존 ART_GUIDE의 [STYLE]을 품질 위주로 보강)
+const STYLE = `[STYLE]
+Style: cute miniature diorama, like a premium handmade toy model photographed on a tabletop.
+Isometric 3/4 view from the front-right, camera about 35 degrees above.
+Soft rounded shapes, chunky proportions, smooth clay and painted-wood texture with fine hand-painted details.
+Soft warm key light from the upper-left, gentle ambient occlusion, soft contact shadow only directly under the object.
+Pastel colors with these accents: ginseng ivory #E9D3A8, ginseng berry red #D7392F,
+perilla leaf green #4F8A3C, Geumgang river blue #3C7FB8, red cliff rust #B5532E.
+High detail, crisp clean silhouette edges, cohesive with the attached reference image.
+Clean, bright, friendly, for elementary school children.
+No text, no letters, no numbers, no signs with writing, no logos, no watermark.`;
+
+const T = 'Centered, the whole object visible with a small margin, nothing cut off. Isolated on a fully transparent background (PNG with alpha channel), no floor, no backdrop.';
+const BLD = `Using the attached image as the style reference, create another board-game building piece in exactly the same style, scale, camera angle, lighting, and the same size round grassy base disc as the reference.`;
+const PIECE = `Using the attached image as the style reference, create a board-game player piece: a toy figure standing on a small round red (#D7392F) pedestal, same size and style as the other pieces.`;
+const UI = `Using the attached image as the style reference, create a game UI icon in the same toy-diorama style, but simpler and bolder so it reads clearly at small size (64px). Front view, slightly tilted, chunky and glossy.`;
+
+// prompt: 고유 설명, pre: 앞부분, size·bg, attach: 함께 첨부할 그림
+const GROUPS = [
+  { id: 'base', title: '0. 기준 이미지 — 가장 먼저', note: `<ol><li><b>한 대화창에서 끝까지</b> 만드세요. 새 대화를 열면 스타일이 달라집니다.</li><li>기준 이미지(<code>style-anchor.png</code>)를 확정한 뒤, 이후 모든 요청에 <b>그 그림을 첨부</b>합니다.</li><li>이미 있는 그림도 더 좋게 다시 만들고 싶으면 같은 프롬프트로 다시 요청하고 같은 이름으로 덮어쓰면 됩니다.</li><li>투명 배경이 안 나오면 "make the background pure white #FFFFFF"로 다시 요청하세요. 배경은 정리 도구로 지웁니다.</li></ol>`,
+    items: [
+      { file: 'style-anchor.png', also: 'bld-museum.png', name: '기준 이미지: 금산인삼관', emoji: '🌱', size: '1024×1024', bg: '투명', pre: '',
+        prompt: `A single miniature diorama building piece: a small museum about Korean ginseng inspired by the Geumsan Ginseng Hall in Geumsan, Korea — a warm modern building with a gently curved roof, big windows, a small ginseng field with black shade canopies beside it, and a giant cute ginseng root sculpture at the entrance. The building sits on a round grassy base disc, like a board-game tile piece. ${T}` },
+    ] },
+  { id: 'map', title: '1. 지도 바탕', note: '건물이 그려져 나오면 "remove all buildings, keep only the landscape"로 다시 요청하세요. 지금 칸 위치는 현재 지도에 맞춰져 있어서, 새 지도를 쓰면 칸 위치를 다시 맞춰야 합니다.',
+    items: [
+      { file: 'map-base.png', name: '지도 바탕 (건물 없이)', emoji: '🗺️', size: '1536×1024 (가로 3:2)', bg: '불투명', attach: 'style-anchor.png',
+        pre: 'Using the attached image as the style reference,',
+        prompt: `create a wide isometric miniature diorama landscape of a mountainous county in a basin, shaped like a round island board on a dark wooden tabletop: one tall rocky mountain at the top (north), sharp granite peaks at the bottom-left (southwest), a clear blue river with tall red-brown cliffs winding along the right (east) side, and a wide flat town basin in the middle surrounded by rows of ginseng fields with black shade canopies and bright green perilla fields. Light sandy footpaths connect several large empty round clearings spread around the land, where game pieces will be placed later. NO buildings, no houses, no people, no text. The island fills the frame with a little dark margin around it.` },
+    ] },
+  { id: 'bld', title: '2. 장소 건물', note: '모두 <b>기준 이미지(style-anchor.png)를 첨부</b>하고 복사한 프롬프트를 붙여 넣으세요. 받침 크기가 같아야 게임판에서 가지런해 보입니다.',
+    items: [
+      ['bld-market.png', '금산 인삼약초시장', '🧺', 'A cozy traditional Korean herb market with a few colorful striped awning stalls, wooden baskets full of fresh ginseng roots, red boxes of red ginseng, bundles of dried medicinal herbs hanging, a tiny shopkeeper figure. No text on any sign.'],
+      ['bld-shrine.png', '칠백의총', '🕊️', 'A calm, respectful Korean memorial garden: one large round grassy burial mound with a low stone fence, a small traditional Korean shrine with red pillars and a dark tiled roof, a red spirit gate (hongsalmun), a stone path and pine trees. Peaceful and dignified, not scary.'],
+      ['bld-monument.png', '이치대첩 유적', '🛡️', 'A mountain pass with a tall plain stone monument standing on a turtle-shaped stone base (no carved letters visible), a few Joseon-era triangular flags without letters, pine trees and a winding path over the pass.'],
+      ['bld-mountain.png', '서대산', '⛰️', 'A tall but cute rocky mountain, clearly the tallest piece on the board, with granite cliffs, pine trees, a tiny zigzag hiking trail and a small wooden observation deck on the summit.'],
+      ['bld-daedun.png', '대둔산 구름다리', '🌉', 'A cute cluster of sharp granite rock peaks connected by a small red suspension bridge high between two rocks, a tiny staircase, colorful autumn maple trees.'],
+      ['bld-river.png', '적벽강', '🏞️', 'A bend of a clear blue river below tall reddish-brown rock cliffs, a small sandy beach with pebbles, a little wooden boat and a few river fish jumping.'],
+      ['bld-temple.png', '보석사', '🌳', 'A small traditional Korean Buddhist temple hall in the forest with colorful dancheong painted eaves, a stone stairway, and a huge old golden ginkgo tree beside it, bigger than the hall.'],
+      ['bld-satellite.png', '금산위성센터', '📡', 'A satellite earth station in a green valley: several large white parabolic dish antennas of different sizes pointing at the sky, one very large old dish in front, a small control building, tiny glowing signal waves. No logos.'],
+      ['bld-village.png', '추부 깻잎마을', '🌿', 'A small farming village with rows of tall green perilla plants in arched greenhouses and open fields, a little farmhouse with a tiled roof, stacked crates of fresh perilla leaves.'],
+      ['bld-start.png', '출발: 인삼축제 마당', '🎪', 'A festive open plaza with a small outdoor stage, colorful paper lanterns on strings, a big cute ginseng-root mascot statue (original design), and two little food stalls. About 20% larger than the other pieces.'],
+      ['bld-rest.png', '쉼터: 금강변 정자', '🛖', 'A small traditional Korean wooden pavilion (jeongja) by a riverbank with a bench, and a steaming pot of fish-and-ginseng porridge on a little low table.'],
+      ['bld-chance.png', '찬스: 인삼 씨앗 상자', '🎁', 'A cute wooden treasure seed box with its lid open, overflowing with glowing golden ginseng seeds and red ginseng berries, little sparkles.'],
+    ].map(([file, name, emoji, d]) => ({ file, name, emoji, size: '1024×1024', bg: '투명', attach: 'style-anchor.png', pre: BLD, prompt: `${d} ${T}` })) },
+  { id: 'char', title: '3. 안내 캐릭터 — 금이 · 산이', note: '먼저 <b>기본(normal)</b>을 만든 뒤, 표정 그림은 <b>그 캐릭터의 기본 그림을 첨부</b>해서 요청합니다. 포즈와 옷이 바뀌면 "keep exactly the same pose and outfit"을 덧붙여 다시 요청하세요.',
+    items: [
+      ...[['geumi', '금이', '👧', 'a cheerful girl with a red headband decorated with a small ginseng berry, short bob hair, holding a magnifying glass'],
+          ['sani', '산이', '🧒', 'a cheerful boy with a green bucket hat shaped like a perilla leaf and a small backpack with a satellite-dish keychain']].flatMap(([id, name, emoji, d]) => [
+        { file: `char-${id}-normal.png`, name: `${name} 기본`, emoji, size: '1024×1024', bg: '투명', attach: 'style-anchor.png',
+          pre: 'Using the attached image as the style reference,',
+          prompt: `create a cute chibi child explorer character as a small painted toy figure: ${d}, wearing a simple traditional-Korean-inspired vest. Full body, standing, facing slightly to the left, friendly smile, big round eyes. ${T}` },
+        ...[['think', '생각', 'thinking, one finger on the chin, eyes looking up'], ['happy', '정답', 'very happy and cheering with both arms up'], ['sad', '오답', 'a little sad but still cute, shoulders down'], ['surprised', '시간 초과', 'surprised, mouth open, hands on cheeks']].map(([ex, label, en]) => ({
+          file: `char-${id}-${ex}.png`, name: `${name} ${label}`, emoji, size: '1024×1024', bg: '투명', attach: `char-${id}-normal.png`,
+          pre: 'Same character as the attached image, same outfit, same proportions, same style and lighting.',
+          prompt: `Only change the expression and pose to: ${en}. Full body. ${T}` })),
+      ]),
+    ] },
+  { id: 'piece', title: '4. 플레이어 말', note: '기준 이미지와 이미 만든 말 1개를 함께 첨부하면 크기가 잘 맞습니다.',
+    items: [
+      ['piece-ginseng.png', '인삼 요정', '🌱', 'a cute ginseng root character with tiny arms and legs made of roots, a few green leaves and red berries on its head, big round eyes'],
+      ['piece-perilla.png', '깻잎', '🍃', 'a cute perilla leaf character with a jagged leaf edge, small arms and legs, rosy cheeks'],
+      ['piece-fish.png', '금강 피라미', '🐟', 'a cute small silver river minnow with pink and blue stripes, standing upright on its tail fin'],
+      ['piece-satellite.png', '위성 로봇', '🤖', 'a cute small white robot with a dish antenna on its head and a blinking light'],
+    ].map(([file, name, emoji, d]) => ({ file, name, emoji, size: '1024×1024', bg: '투명', attach: 'style-anchor.png', pre: PIECE, prompt: `The figure is ${d}. ${T}` })) },
+  { id: 'mg', title: '5. 미니게임 그림', note: '미니게임 3종(인삼 캐기 · 깻잎 짝 맞추기 · 위성 신호 맞추기)에 쓰입니다. 모두 기준 이미지를 첨부하세요.',
+    items: [
+      { file: 'mg-ginseng-field.png', name: '인삼 캐기: 인삼밭 배경', emoji: '🟫', size: '1536×1024', bg: '불투명', prompt: 'A wide front view of a ginseng field: dark rich brown soil in the lower half with a neat raised soil bed, black shade canopies on wooden posts along the top, soft green hills behind. Lots of empty soil in the center. No characters.' },
+      { file: 'mg-ginseng-root.png', name: '인삼 캐기: 인삼 뿌리', emoji: '🥕', size: '1024×1024', bg: '투명', prompt: `A single whole cute ginseng root standing upright, with a plump body, many fine hair roots at the bottom, a stem with five-leaf leaves and a cluster of red berries on top. Front view. ${T}` },
+      { file: 'mg-card-back.png', name: '짝 맞추기: 카드 뒷면', emoji: '🂠', size: '1024×1024', bg: '불투명', prompt: 'A flat playing-card back design filling the whole square: red and ivory traditional Korean pattern with ginseng leaves and berries in the corners and a round ginseng-leaf emblem in the center. Flat front view, no perspective, no text.' },
+      { file: 'mg-card-1.png', name: '짝 맞추기: 인삼', emoji: '🌱', size: '1024×1024', bg: '투명', prompt: `A cute fresh ginseng root with leaves and red berries, as a simple bold card illustration. ${T}` },
+      { file: 'mg-card-2.png', name: '짝 맞추기: 깻잎', emoji: '🍃', size: '1024×1024', bg: '투명', prompt: `A neat stack of fresh green perilla leaves tied with a string, as a simple bold card illustration. ${T}` },
+      { file: 'mg-card-3.png', name: '짝 맞추기: 칠백의총 사당', emoji: '🕊️', size: '1024×1024', bg: '투명', prompt: `A small traditional Korean shrine gate with red pillars and a tiled roof, as a simple bold card illustration. ${T}` },
+      { file: 'mg-card-4.png', name: '짝 맞추기: 위성 안테나', emoji: '📡', size: '1024×1024', bg: '투명', prompt: `A big white satellite dish antenna on a stand, as a simple bold card illustration. ${T}` },
+      { file: 'mg-antenna.png', name: '위성 신호: 안테나', emoji: '📡', size: '1024×1024', bg: '투명', prompt: `A single cute white satellite dish antenna on a small square grassy tile, viewed from above at an angle, chunky toy style. ${T}` },
+      { file: 'mg-satellite.png', name: '위성 신호: 위성', emoji: '🛰️', size: '1024×1024', bg: '투명', prompt: `A cute small satellite with blue solar panels and a tiny dish, smiling face optional, floating. ${T}` },
+      { file: 'mg-block.png', name: '위성 신호: 산 장애물', emoji: '⛰️', size: '1024×1024', bg: '투명', prompt: `A small chunky rocky hill with two pine trees on a square grassy tile, used as an obstacle block in a puzzle game. ${T}` },
+    ].map((it) => ({ ...it, attach: 'style-anchor.png', pre: 'Using the attached image as the style reference, create a minigame asset in exactly the same style:' })) },
+  { id: 'ui', title: '6. 화면(UI) 그림', note: '게임 화면의 버튼·아이콘·배경을 바꿉니다. 파일이 없으면 지금처럼 이모지로 보이고, 넣으면 바로 그림으로 바뀝니다. 아이콘은 작게 보이므로 <b>단순하고 굵게</b> 나오는지 확인하세요.',
+    items: [
+      { file: 'ui-title-bg.png', name: '첫 화면 배경', emoji: '🖼️', size: '1536×1024', bg: '불투명', pre: 'Using the attached image as the style reference,',
+        prompt: 'create a wide key-art background for the title screen of a board game: the Geumsan miniature island board seen from a low angle at the bottom of the frame with tiny ginseng fields, a red cliff river, a satellite dish and a rocky mountain, a soft warm sunrise sky above with fluffy clouds and floating ginseng leaves. Keep the CENTER and upper middle of the image calm and empty (soft sky) for the title text. No characters, no text.' },
+      { file: 'ui-bus.png', name: '금산 버스 아이콘', emoji: '🚌', size: '1024×1024', bg: '투명', pre: UI, prompt: `A cute chunky little country bus, ivory and berry-red colors with a green leaf stripe, round headlights, three-quarter front view. ${T}` },
+      { file: 'ui-heart.png', name: '하트 (가득)', emoji: '❤️', size: '512×512', bg: '투명', pre: UI, prompt: `A glossy plump red heart shaped like it is made of a red ginseng berry, with a tiny green leaf on top. ${T}` },
+      { file: 'ui-heart-empty.png', name: '하트 (빈칸)', emoji: '🤍', size: '512×512', bg: '투명', pre: UI, prompt: `The same plump heart shape but empty: pale beige translucent, with a soft outline, like an empty slot. ${T}` },
+      { file: 'ui-score.png', name: '점수 아이콘', emoji: '🪙', size: '512×512', bg: '투명', pre: UI, prompt: `A shiny golden coin with an embossed ginseng leaf on its face (no letters), slightly tilted. ${T}` },
+      { file: 'ui-hint.png', name: '힌트 아이콘', emoji: '💡', size: '512×512', bg: '투명', pre: UI, prompt: `A cute magnifying glass with a wooden handle and a small glowing ginseng leaf inside the lens. ${T}` },
+      { file: 'ui-stamp.png', name: '도장 자국', emoji: '🔴', size: '512×512', bg: '투명', pre: 'Create a flat game UI element, front view, no 3D perspective:',
+        prompt: `a round red ink seal stamp impression like a traditional Korean seal, slightly rough ink texture at the edges, with a simple ginseng leaf symbol in the center and a double ring border. No letters. ${T}` },
+      { file: 'ui-trophy.png', name: '완주 트로피', emoji: '🏆', size: '1024×1024', bg: '투명', pre: UI, prompt: `A cute golden trophy cup topped with a golden ginseng root with leaves and red berries, on a wooden base, small sparkles. ${T}` },
+      { file: 'ui-paper.png', name: '카드 바탕 종이 (반복 무늬)', emoji: '📜', size: '1024×1024', bg: '불투명', pre: 'Create a seamless tileable texture:',
+        prompt: 'warm ivory Korean hanji paper with very subtle fibers and a few faint pressed ginseng leaves, very light and low contrast so text on top stays easy to read. Flat, evenly lit, no shadows, no vignette, no text.' },
+    ].map((it) => ({ ...it, attach: it.attach ?? 'style-anchor.png' })) },
+];
+
+const items = GROUPS.flatMap((g) => g.items);
+const full = (it) => [it.pre, it.prompt, STYLE].filter(Boolean).join('\n\n');
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+document.getElementById('nav').innerHTML = GROUPS.map((g) => `<a href="#${g.id}">${esc(g.title.replace(/^\d+\.\s*/, '').split(' —')[0])}</a>`).join('');
+document.getElementById('main').innerHTML = `
+  <section id="style"><h2>공통 스타일 문장</h2>
+    <div class="note">아래 카드의 프롬프트에는 이 문장이 이미 들어 있어요. ChatGPT가 스타일을 잊은 것 같을 때 따로 붙여 넣으세요.</div>
+    <div class="card"><pre>${esc(STYLE)}</pre><div class="btns"><button class="copy" data-copy="style">스타일 문장 복사</button></div></div>
+  </section>` + GROUPS.map((g) => `
+  <section id="${g.id}"><h2>${esc(g.title)}</h2><div class="note">${g.note}</div>
+    <div class="grid">${g.items.map((it) => {
+      const i = items.indexOf(it);
+      return `<div class="card" id="c${i}">
+        <div class="top"><div class="thumb">${it.emoji}</div>
+          <div class="meta"><b>${esc(it.name)}</b><code>${it.file}</code>${it.also ? ` + <code>${it.also}</code>` : ''}
+            <div class="tags"><span class="tag status">확인 중</span><span class="tag">${it.size}</span><span class="tag">${it.bg} 배경</span>${it.attach ? `<span class="tag attach">📎 ${it.attach} 첨부</span>` : ''}</div></div></div>
+        <pre>${esc(full(it))}</pre>
+        <div class="btns"><button class="copy" data-copy="${i}">📋 프롬프트 복사</button></div>
+      </div>`; }).join('')}</div>
+  </section>`).join('');
+
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); return true; } catch {}
+  const ta = Object.assign(document.createElement('textarea'), { value: text });
+  document.body.append(ta); ta.select();
+  const ok = document.execCommand('copy'); ta.remove(); return ok;
+}
+document.addEventListener('click', async (e) => {
+  const b = e.target.closest('[data-copy]');
+  if (!b) return;
+  const text = b.dataset.copy === 'style' ? STYLE : full(items[b.dataset.copy]);
+  const label = b.textContent;
+  b.textContent = (await copyText(text)) ? '✅ 복사했어요!' : '복사 실패: 글을 직접 선택하세요';
+  b.classList.add('done');
+  setTimeout(() => { b.textContent = label; b.classList.remove('done'); }, 1500);
+});
+
+// 이미 있는 그림은 미리보기와 함께 '있음'으로 표시
+let have = 0, done = 0;
+items.forEach((it, i) => {
+  const img = new Image();
+  const card = document.getElementById(`c${i}`);
+  const tag = card.querySelector('.status');
+  img.onload = () => { have++; card.classList.add('have'); tag.className = 'tag have'; tag.textContent = '✔ 있음 · 다시 만들기 가능'; card.querySelector('.thumb').replaceChildren(img); finish(); };
+  img.onerror = () => { tag.className = 'tag need'; tag.textContent = '없음 · 만들어 주세요'; finish(); };
+  img.src = ART + it.file;
+});
+function finish() {
+  if (++done < items.length) return;
+  document.getElementById('summary').textContent = `그림 ${items.length}장 중 ${have}장 있음 · ${items.length - have}장 필요`;
+}
+</script>
+</body>
+</html>

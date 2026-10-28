@@ -1,9 +1,10 @@
 import './style.css';
+import { MINIGAMES } from './minigames.js';
 
 // 지역 묶음만 바꾸면 다른 시군판이 된다: public/regions/<REGION>/
 const REGION = 'geumsan';
 const BASE = `${import.meta.env.BASE_URL}regions/${REGION}/`;
-const RULES = { turns: 12, hearts: 3, buses: 3, stamps: 4, quizSec: 15, correct: 10, lapBonus: 5, finishBonus: 30 };
+const RULES = { turns: 12, hearts: 3, buses: 3, stamps: 4, quizSec: 15, correct: 10, minigame: 15, lapBonus: 5, finishBonus: 30 };
 const CATEGORY = { history: '역사', people: '인물', specialty: '특산물', nature: '자연', society: '과학·사회', environment: '환경', safety: '안전' };
 const PIPS = { 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] };
 
@@ -49,6 +50,9 @@ document.addEventListener(
   true,
 );
 
+const url = (src) => `${BASE}${src}`;
+const ui = (key, emoji, cls) => art(D.board.ui[key], emoji, cls);
+
 function guideImg(expr) {
   const g = S.guide;
   return art(g.art[expr], g.emoji, 'guide', g.art.normal);
@@ -75,6 +79,8 @@ async function load() {
     );
     D = { board, questions, facts, nicknames };
     document.title = board.title;
+    // 종이 무늬가 없으면 CSS가 그냥 단색을 쓴다
+    document.documentElement.style.setProperty('--paper', `url('${url(board.ui.paper)}')`);
     showTitle();
   } catch (err) {
     $app.innerHTML = `<div class="loading"><p>지도를 불러오지 못했어요. (${esc(err.message)})</p></div>`;
@@ -94,14 +100,45 @@ function showTitle() {
     })
     .join('');
   $app.innerHTML = `
-    <div class="screen title-screen">
+    <div class="screen title-screen" style="--title-bg:url('${url(b.ui.titleBg)}')">
       ${floats}
       <p class="title-sub">주사위를 굴려 ${esc(b.regionName)}을 탐험해요!</p>
       <h1 class="title"><span>다 같이 돌자,</span><span class="big">${esc(b.regionName)} <em>한</em> 바퀴</span></h1>
       <p class="chip">연습 모드 · 기록은 저장되지 않아요</p>
       <button class="btn primary big-btn">화면을 눌러 시작!</button>
+      <button class="mg-link" id="mgOnly">🎮 미니게임만 해 보기</button>
+      <div class="modal-wrap" id="modal"></div>
     </div>`;
   $('.title-screen').onclick = showNickname;
+  $('#modal').onclick = (e) => e.stopPropagation(); // 연습 모달 안의 클릭이 '시작'으로 번지지 않게
+  $('#mgOnly').onclick = (e) => {
+    e.stopPropagation();
+    practiceMinigames();
+  };
+}
+
+// 첫 화면에서 미니게임만 골라 연습한다 (점수·도장 없음)
+async function practiceMinigames() {
+  S = { guide: pick(D.board.guides) };
+  for (;;) {
+    const id = await modal(
+      `<h2>🎮 미니게임 연습</h2>
+       <div class="intro-cards">${Object.entries(MINIGAMES)
+         .map(([k, m]) => `<button class="intro-card" data-close="${k}"><span class="mg-emoji">${m.emoji}</span><b>${m.title}</b></button>`)
+         .join('')}</div>
+       <div class="row center">
+         <button class="btn ghost" data-close="">닫기</button>
+         <button class="btn gold small" data-close="level">난이도: ${profile.level === 'low' ? '🌱 쉬움' : '🌳 보통'}</button>
+       </div>`,
+      'small',
+    );
+    if (!id) return;
+    if (id === 'level') {
+      profile.level = profile.level === 'low' ? 'high' : 'low';
+      continue;
+    }
+    await playMinigame(id, () => '');
+  }
 }
 
 function homeButton() {
@@ -236,7 +273,7 @@ function renderBoard() {
       <div class="hud hud-player">${art(S.piece.art, S.piece.emoji, 'hud-piece')}<div><b>${esc(profile.nickname)}</b><small>${profile.level === 'low' ? '쉬움' : '보통'}</small></div></div>
       <div class="hud hud-stamps" id="stamps"></div>
       <div class="hud hud-status" id="status"></div>
-      <button class="bus" id="bus"><span class="bus-icon">🚌</span><b>${esc(b.busName)}</b><i id="busN"></i></button>
+      <button class="bus" id="bus">${ui('bus', '🚌', 'bus-icon')}<b>${esc(b.busName)}</b><i id="busN"></i></button>
       <button class="dice" id="dice"><span class="die" id="die">${pips(1)}</span><b>주사위 굴리기</b></button>
       <div class="toast" id="toast"></div>
       <div class="modal-wrap" id="modal"></div>
@@ -256,11 +293,14 @@ function updateHud() {
   $('#stamps').innerHTML = `
     <b>오늘의 도장 ${S.got.size} / ${S.stamps.length}</b>
     <div class="stamp-row">${S.stamps
-      .map((id) => `<span class="stamp${S.got.has(id) ? ' got' : ''}"><i>${S.got.has(id) ? '✔' : places[id].emoji}</i><small>${esc(places[id].short)}</small></span>`)
+      .map((id) => `<span class="stamp${S.got.has(id) ? ' got' : ''}"><i>${S.got.has(id) ? ui('stamp', '✔', 'stamp-img') : places[id].emoji}</i><small>${esc(places[id].short)}</small></span>`)
       .join('')}</div>`;
+  const hearts = Array.from({ length: RULES.hearts }, (_, i) =>
+    i < S.hearts ? ui('heart', '❤️', 'heart') : ui('heartEmpty', '🤍', 'heart'),
+  ).join('');
   $('#status').innerHTML = `
-    <span class="hearts">${'❤️'.repeat(S.hearts)}${'🤍'.repeat(RULES.hearts - S.hearts)}</span>
-    <span class="score"><small>점수</small><b>${S.score}</b></span>
+    <span class="hearts">${hearts}</span>
+    <span class="score">${ui('score', '🪙', 'score-icon')}<span><small>점수</small><b>${S.score}</b></span></span>
     <span class="turn">턴 ${S.turn} / ${RULES.turns}</span>`;
   $('#busN').textContent = `×${S.buses}`;
   $('#dice').disabled = S.busy;
@@ -457,8 +497,22 @@ function pickQuestion(placeId) {
 
 async function placeQuiz(placeId) {
   const place = D.board.places[placeId];
-  const q = pickQuestion(placeId);
   const isStamp = S.stamps.includes(placeId) && !S.got.has(placeId);
+  const games = place.minigames ?? [];
+  if (games.length && (place.mode === 'minigame' || (place.mode === 'quiz_or_minigame' && Math.random() < 0.5))) {
+    const ok = await playMinigame(pick(games), (won) => {
+      if (!won) return '<p class="muted">괜찮아요, 하트는 그대로예요.</p>';
+      S.score += RULES.minigame;
+      if (isStamp) {
+        S.got.add(placeId);
+        return `<div class="stamp-big">${place.emoji}<b>도장 쾅!</b></div><p class="gain">+${RULES.minigame}점 · 오늘의 도장을 받았어요</p>`;
+      }
+      return `<p class="gain">+${RULES.minigame}점</p>`;
+    }, place);
+    updateHud();
+    return ok;
+  }
+  const q = pickQuestion(placeId);
   const result = await askQuiz(q, `${place.emoji} ${place.name}`, (r) => {
     if (r === 'correct') {
       S.score += RULES.correct;
@@ -492,7 +546,7 @@ function askQuiz(q, where, apply) {
     <div class="choices ${q.type === 'ox' ? 'ox' : ''}">${order
       .map((ci, k) => `<button class="choice" data-c="${ci}">${q.type === 'ox' ? '' : `<span class="num">${k + 1}</span>`}${esc(q.choices[ci])}</button>`)
       .join('')}</div>
-    <div class="quiz-foot"><button class="btn gold small" id="hint" ${canHint ? '' : 'disabled'}>💡 힌트 (${S.hints}번)</button></div>
+    <div class="quiz-foot"><button class="btn gold small" id="hint" ${canHint ? '' : 'disabled'}>${ui('hint', '💡', 'btn-icon')} 힌트 (${S.hints}번)</button></div>
     <div class="quiz-result" id="result"></div>`;
   return modal(html, 'quiz', (wrap, done) => {
     const start = performance.now();
@@ -540,6 +594,44 @@ function askQuiz(q, where, apply) {
   });
 }
 
+// ---------- 미니게임 ----------
+// 설명 → 게임 → 결과(apply가 점수·도장을 반영하고 보여 줄 HTML을 돌려준다)
+function playMinigame(id, apply, place) {
+  const mg = MINIGAMES[id];
+  const where = place ? `${place.emoji} ${esc(place.name)} · ` : '';
+  return modal(
+    `<div class="quiz-head"><span class="where">${where}🎮 ${mg.title}</span><span class="tag">미니게임</span></div>
+     <div class="mg-area" id="mgArea">
+       ${say('think', mg.how)}
+       <button class="btn primary" id="mgStart">시작!</button>
+     </div>
+     <div class="quiz-result" id="result"></div>`,
+    'quiz minigame',
+    (wrap, done) => {
+      wrap.querySelector('#mgStart').onclick = async () => {
+        const area = wrap.querySelector('#mgArea');
+        const ctx = { art, url, mg: D.board.minigameArt, level: profile.level };
+        const won = await mg.run(area, ctx);
+        const extra = apply(won);
+        const res = wrap.querySelector('#result');
+        res.innerHTML = `
+          ${say(won ? 'happy' : 'sad', won ? `${mg.title} 성공! 🎉` : '아쉬워요, 다음엔 꼭!')}
+          ${extra}
+          <button class="btn primary" id="cont">계속하기</button>`;
+        res.classList.add('show');
+        res.scrollIntoView({ block: 'nearest' });
+        updateHudSafe();
+        res.querySelector('#cont').onclick = () => done(won);
+      };
+    },
+  );
+}
+
+// 연습 모드(첫 화면)에는 HUD가 없다
+function updateHudSafe() {
+  if ($('#status')) updateHud();
+}
+
 // ---------- 찬스 · 쉼터 ----------
 async function chance() {
   const events = [
@@ -550,6 +642,11 @@ async function chance() {
       : { text: '홍삼 한 뿌리를 먹고 힘이 났어요!', note: '하트가 가득해서 +10점', run: () => (S.score += 10) },
     { text: '금강 바람을 타고 앞으로 날아가요!', note: '2칸 앞으로', run: async () => (await move(2), land(true)) },
     { text: '깜짝 퀴즈! 맞히면 +20점, 틀려도 하트는 그대로예요.', note: '도전!', run: () => bonusQuiz() },
+    {
+      text: '깜짝 미니게임! 성공하면 +15점이에요.',
+      note: '도전!',
+      run: () => playMinigame(pick(Object.keys(MINIGAMES)), (won) => (won ? ((S.score += RULES.minigame), `<p class="gain">+${RULES.minigame}점</p>`) : '')),
+    },
   ];
   const ev = pick(events);
   await modal(
@@ -616,7 +713,8 @@ async function showEnd() {
   }
   updateHud();
   const v = await modal(
-    `${say(face, title)}
+    `${S.finished ? ui('trophy', '🏆', 'trophy') : ''}
+     ${say(face, title)}
      <div class="end-stats">
        <div><small>점수</small><b>${S.score}</b></div>
        <div><small>오늘의 도장</small><b>${S.got.size} / ${S.stamps.length}</b></div>
