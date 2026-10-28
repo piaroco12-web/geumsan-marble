@@ -215,7 +215,7 @@ function signal(root, ctx) {
     }
   root.innerHTML = `
     <div class="sig">
-      <div class="grid" style="--cols:${COLS}">${cells.join('')}<span class="beam" id="sBeam"></span></div>
+      <div class="grid" style="--cols:${COLS}">${cells.join('')}<span class="beam idle" id="sBeam"></span></div>
       <div class="sig-side">
         <div class="mg-count">기회 <b id="sTry">3</b>번</div>
         <div class="queue" id="sQueue"><span class="muted">명령을 넣어 주세요</span></div>
@@ -263,6 +263,7 @@ function signal(root, ctx) {
       clearTrail();
       let p = [...lv.start];
       setBeam(p);
+      beam.classList.remove('idle'); // 실행 전에는 안테나 그림이 보이도록 숨겨 둔다
       let result = 'short';
       for (let i = 0; i < queue.length; i++) {
         root.querySelectorAll('.q').forEach((q) => q.classList.toggle('now', Number(q.dataset.q) === i));
@@ -303,6 +304,7 @@ function signal(root, ctx) {
       }
       await sleep(900);
       setBeam(lv.start);
+      beam.classList.add('idle');
       drawQueue();
       running = false;
     };
