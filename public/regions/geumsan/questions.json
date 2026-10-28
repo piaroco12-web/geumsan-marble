@@ -1,0 +1,48 @@
+[
+ {"id":"L01","category":"specialty","level":"low","type":"ox","question":"금산은 인삼으로 유명한 고장이다.","choices":["O","X"],"answer":0,"explanation":"금산은 오래전부터 인삼을 길러 온 '인삼의 고장'이에요.","verified":true,"places":["museum"]},
+ {"id":"L02","category":"specialty","level":"low","type":"choice","question":"인삼밭에 검은 그늘막을 치는 까닭은?","choices":["강한 햇빛을 가려 주려고","비를 더 많이 맞히려고","새를 불러 모으려고","밭을 예쁘게 꾸미려고"],"answer":0,"explanation":"인삼은 강한 햇빛을 싫어해요. 그래서 그늘막으로 햇빛을 가리는 '해가림' 농사를 해요.","verified":true,"places":["museum"]},
+ {"id":"L03","category":"specialty","level":"low","type":"choice","question":"인삼이라는 이름은 뿌리가 무엇을 닮아서 붙었다고 전해질까요?","choices":["사람","물고기","별","나뭇잎"],"answer":0,"explanation":"뿌리 모양이 사람을 닮아서 '인삼(人蔘)'이라고 불렀다고 전해져요.","verified":true,"places":["museum"]},
+ {"id":"H01","category":"specialty","level":"high","type":"choice","question":"2018년 금산 전통 인삼농업이 이름을 올린 것은?","choices":["세계중요농업유산","세계자연유산","인류무형문화유산","세계기록유산"],"answer":0,"explanation":"유엔식량농업기구(FAO)가 금산 전통 인삼농업을 세계중요농업유산으로 정했어요. 인삼으로는 세계 처음이에요.","verified":true,"places":["museum"]},
+ {"id":"H02","category":"history","level":"high","type":"choice","question":"전설에 따르면 금산에서 처음 인삼을 심은 곳으로 전해지는 곳은?","choices":["개삼터","칠백의총","적벽강","이치"],"answer":0,"explanation":"강 처사가 산신령에게 받은 씨앗을 심었다는 남이면 개삼터가 금산 인삼의 시작으로 전해져요.","verified":true,"places":["museum"]},
+ {"id":"H03","category":"specialty","level":"high","type":"ox","question":"금산 전통 인삼농업은 인삼 농사로는 세계에서 처음으로 세계중요농업유산이 되었다.","choices":["O","X"],"answer":0,"explanation":"2018년 인삼 품목으로는 세계 최초로 등재되었어요.","verified":true,"places":["museum"]},
+
+ {"id":"L04","category":"specialty","level":"low","type":"choice","question":"금산 인삼약초시장에서 가장 많이 볼 수 있는 것은?","choices":["인삼과 약초","생선과 조개","자동차 부품","옷과 신발"],"answer":0,"explanation":"인삼약초시장에는 수삼, 홍삼, 여러 가지 약초를 파는 가게가 모여 있어요.","verified":true,"places":["market"]},
+ {"id":"L05","category":"specialty","level":"low","type":"choice","question":"캐낸 그대로 말리지 않은 인삼을 무엇이라고 할까요?","choices":["수삼","홍삼","백삼","산삼"],"answer":0,"explanation":"밭에서 캐낸 그대로의 싱싱한 인삼을 '수삼'이라고 해요.","verified":true,"places":["market"]},
+ {"id":"H04","category":"specialty","level":"high","type":"choice","question":"인삼을 쪄서 말려 붉은빛이 도는 것을 무엇이라고 할까요?","choices":["홍삼","수삼","백삼","더덕"],"answer":0,"explanation":"인삼을 쪄서 말리면 붉은빛이 돌아 '홍삼'이라고 불러요.","verified":true,"places":["market"]},
+ {"id":"H05","category":"specialty","level":"high","type":"ox","question":"금산 인삼약초시장은 우리나라에서 손꼽히는 큰 인삼 시장이다.","choices":["O","X"],"answer":0,"explanation":"금산에는 전국에서 인삼을 사고팔러 오는 큰 인삼·약초 시장이 있어요.","verified":true,"places":["market"]},
+
+ {"id":"L06","category":"history","level":"low","type":"choice","question":"칠백의총에 함께 잠들어 있는 사람들은?","choices":["임진왜란 때 싸운 의병 700명","조선의 임금 700명","고려의 장군 7명","독립운동가 70명"],"answer":0,"explanation":"1592년 임진왜란 때 금산에서 왜군과 싸우다 숨진 의병 700여 명을 한 무덤에 모셨어요.","verified":true,"places":["shrine"]},
+ {"id":"L07","category":"history","level":"low","type":"ox","question":"칠백의총은 임진왜란과 관련 있는 곳이다.","choices":["O","X"],"answer":0,"explanation":"칠백의총은 1592년 임진왜란 때 금산 전투에서 순절한 의병들의 무덤이에요.","verified":true,"places":["shrine"]},
+ {"id":"H06","category":"people","level":"high","type":"choice","question":"금산 전투에서 의병을 이끈 사람으로 알맞은 짝은?","choices":["조헌과 영규대사","이순신과 원균","김유신과 계백","안중근과 윤봉길"],"answer":0,"explanation":"조헌과 승려 영규대사가 의병과 승병을 이끌고 금산에서 왜군과 싸웠어요.","verified":true,"places":["shrine"]},
+ {"id":"H07","category":"people","level":"high","type":"choice","question":"영규대사는 어떤 사람이었을까요?","choices":["승병을 이끈 스님","배를 만든 목수","그림을 그린 화가","별을 관측한 학자"],"answer":0,"explanation":"영규대사는 승병(스님 군대)을 이끌고 조헌과 함께 싸운 스님이에요.","verified":true,"places":["shrine"]},
+
+ {"id":"L08","category":"history","level":"low","type":"choice","question":"이치대첩에서 왜군을 막아 낸 장군은?","choices":["권율","이순신","강감찬","을지문덕"],"answer":0,"explanation":"권율 장군이 금산과 전주 사이 고개인 이치에서 왜군을 막았어요.","verified":true,"places":["monument"]},
+ {"id":"H08","category":"history","level":"high","type":"choice","question":"이치대첩에서 왜군을 막은 덕분에 지킬 수 있었던 곳은?","choices":["곡식이 많이 나는 전라도","제주도","함경도","울릉도"],"answer":0,"explanation":"왜군이 전주로 넘어가는 길을 막아, 나라의 곡식 창고인 호남(전라도)을 지켰어요.","verified":true,"places":["monument"]},
+ {"id":"H09","category":"history","level":"high","type":"ox","question":"이치대첩은 임진왜란 때 있었던 전투이다.","choices":["O","X"],"answer":0,"explanation":"이치대첩은 1592년 임진왜란 때의 전투예요.","verified":true,"places":["monument"]},
+
+ {"id":"L09","category":"nature","level":"low","type":"choice","question":"충청남도에서 가장 높은 산은?","choices":["서대산","계룡산","용봉산","칠갑산"],"answer":0,"explanation":"금산의 서대산은 높이 904m로 충남에서 가장 높아요.","verified":true,"places":["mountain"]},
+ {"id":"H10","category":"nature","level":"high","type":"choice","question":"서대산의 높이와 가장 가까운 것은?","choices":["약 900m","약 300m","약 1,900m","약 90m"],"answer":0,"explanation":"서대산은 해발 904m예요.","verified":true,"places":["mountain"]},
+ {"id":"L10","category":"safety","level":"low","type":"choice","question":"산에 오를 때 지켜야 할 약속으로 알맞은 것은?","choices":["정해진 길로만 다닌다","혼자 길을 벗어난다","해가 진 뒤에 출발한다","슬리퍼를 신고 간다"],"answer":0,"explanation":"산에서는 정해진 등산로로 다니고, 어른과 함께 다녀야 안전해요.","verified":true,"places":["mountain","daedun"]},
+
+ {"id":"L11","category":"nature","level":"low","type":"choice","question":"대둔산 바위 봉우리 사이를 잇는 것은?","choices":["구름다리","해저 터널","돌다리 징검다리","케이블 기차"],"answer":0,"explanation":"대둔산에는 바위와 바위 사이를 잇는 구름다리가 있어요.","verified":true,"places":["daedun"]},
+ {"id":"H11","category":"safety","level":"high","type":"choice","question":"높은 구름다리를 건널 때 가장 안전한 행동은?","choices":["난간을 잡고 천천히 걷는다","친구와 뛰며 장난친다","다리를 일부러 흔든다","난간 위에 올라선다"],"answer":0,"explanation":"높은 곳에서는 난간을 잡고 천천히 걸어야 해요.","verified":true,"places":["daedun"]},
+ {"id":"H12","category":"nature","level":"high","type":"ox","question":"대둔산은 뾰족한 바위 봉우리가 많은 산이다.","choices":["O","X"],"answer":0,"explanation":"대둔산은 기암괴석(신기한 바위)이 많은 산으로 알려져 있어요.","verified":true,"places":["daedun"]},
+
+ {"id":"L12","category":"nature","level":"low","type":"choice","question":"적벽강의 '적벽'은 어떤 뜻일까요?","choices":["붉은 절벽","푸른 바다","하얀 모래","검은 숲"],"answer":0,"explanation":"적(赤)은 붉다, 벽(壁)은 절벽이라는 뜻이에요. 붉은 바위 절벽 아래로 강이 흘러요.","verified":true,"places":["river"]},
+ {"id":"H13","category":"nature","level":"high","type":"choice","question":"적벽강은 어느 강의 한 부분일까요?","choices":["금강","한강","낙동강","영산강"],"answer":0,"explanation":"적벽강은 금산을 지나는 금강의 한 구간이에요.","verified":true,"places":["river"]},
+ {"id":"L13","category":"environment","level":"low","type":"choice","question":"강가에서 놀고 난 뒤 할 일은?","choices":["쓰레기를 모두 가져간다","쓰레기를 물에 버린다","돌 밑에 숨긴다","그냥 두고 간다"],"answer":0,"explanation":"내가 만든 쓰레기는 꼭 가져가야 강과 물고기가 깨끗하게 살 수 있어요.","verified":true,"places":["river"]},
+ {"id":"H14","category":"specialty","level":"high","type":"choice","question":"금강의 작은 물고기를 프라이팬에 둥글게 놓고 튀겨 만드는 금산 음식은?","choices":["도리뱅뱅이","비빔밥","떡볶이","냉면"],"answer":0,"explanation":"도리뱅뱅이는 작은 민물고기를 빙 돌려 담아 튀기고 양념한 음식이에요.","verified":true,"places":["river"]},
+
+ {"id":"L14","category":"nature","level":"low","type":"choice","question":"보석사 앞에 서 있는 아주 오래된 나무는?","choices":["은행나무","소나무","바나나 나무","야자나무"],"answer":0,"explanation":"보석사에는 천 년이 넘었다고 전해지는 커다란 은행나무가 있어요.","verified":true,"places":["temple"]},
+ {"id":"H15","category":"nature","level":"high","type":"ox","question":"보석사 은행나무는 천연기념물로 지정되어 보호받고 있다.","choices":["O","X"],"answer":0,"explanation":"보석사 은행나무는 천연기념물이에요. 오래되고 귀한 나무라 나라에서 보호해요.","verified":true,"places":["temple"]},
+ {"id":"H16","category":"history","level":"high","type":"choice","question":"보석사는 어떤 곳일까요?","choices":["오래된 절","성당","향교","궁궐"],"answer":0,"explanation":"보석사는 신라 때 처음 세워졌다고 전해지는 오래된 절이에요.","verified":true,"places":["temple"]},
+
+ {"id":"L15","category":"society","level":"low","type":"choice","question":"금산위성센터의 커다란 접시 모양 안테나가 하는 일은?","choices":["우주의 위성과 신호를 주고받는다","비를 모은다","햇빛을 막는다","바람으로 전기를 만든다"],"answer":0,"explanation":"접시 안테나는 하늘 높이 떠 있는 통신위성과 신호를 주고받아요.","verified":true,"places":["satellite"]},
+ {"id":"H17","category":"society","level":"high","type":"choice","question":"금산위성센터가 문을 연 해는?","choices":["1970년","1950년","1990년","2010년"],"answer":0,"explanation":"금산위성센터는 1970년에 문을 연 우리나라 첫 위성통신 지구국이에요.","verified":true,"places":["satellite"]},
+ {"id":"H18","category":"society","level":"high","type":"ox","question":"금산위성센터의 첫 번째 안테나는 국가등록문화유산으로 지정되었다.","choices":["O","X"],"answer":0,"explanation":"'금산위성통신 제1지구국 안테나설비'는 우리나라 통신 역사에서 중요해서 등록문화유산이 되었어요.","verified":true,"places":["satellite"]},
+ {"id":"L16","category":"society","level":"low","type":"ox","question":"위성은 우주에 떠서 통신이나 날씨 관측을 돕는다.","choices":["O","X"],"answer":0,"explanation":"통신위성, 기상위성처럼 위성은 우주에서 여러 가지 일을 해요.","verified":true,"places":["satellite"]},
+
+ {"id":"L17","category":"specialty","level":"low","type":"choice","question":"추부 깻잎마을에서 많이 기르는 채소는?","choices":["깻잎","당근","옥수수","수박"],"answer":0,"explanation":"금산 추부면은 깻잎을 많이 기르는 곳으로 유명해요.","verified":true,"places":["village"]},
+ {"id":"H19","category":"specialty","level":"high","type":"choice","question":"깻잎은 어떤 식물의 잎일까요?","choices":["들깨","참외","배추","상추"],"answer":0,"explanation":"깻잎은 들깨의 잎이에요. 들깨 씨로는 들기름을 짜요.","verified":true,"places":["village"]},
+ {"id":"H20","category":"environment","level":"high","type":"ox","question":"비닐하우스를 쓰면 날씨가 추운 때에도 채소를 기를 수 있다.","choices":["O","X"],"answer":0,"explanation":"비닐하우스는 안을 따뜻하게 지켜 줘서 계절과 상관없이 채소를 기를 수 있어요.","verified":true,"places":["village"]}
+]

@@ -1,0 +1,146 @@
+{
+  "title": "다 같이 돌자, 금산 한 바퀴",
+  "regionName": "금산",
+  "width": 1536,
+  "height": 1024,
+  "start": 0,
+  "startName": "인삼축제 마당",
+  "restName": "금강변 정자",
+  "chanceName": "인삼 씨앗 상자",
+  "busName": "금산 버스",
+  "places": {
+    "museum": {
+      "name": "금산인삼관",
+      "short": "인삼관",
+      "emoji": "🌱",
+      "art": "art/bld-museum.png",
+      "categories": ["specialty", "history"],
+      "mode": "quiz"
+    },
+    "market": {
+      "name": "금산 인삼약초시장",
+      "short": "약초시장",
+      "emoji": "🧺",
+      "art": "art/bld-market.png",
+      "categories": ["specialty"],
+      "mode": "quiz"
+    },
+    "shrine": {
+      "name": "칠백의총",
+      "short": "칠백의총",
+      "emoji": "🕊️",
+      "art": "art/bld-shrine.png",
+      "categories": ["history", "people"],
+      "mode": "quiz"
+    },
+    "monument": {
+      "name": "이치대첩 유적",
+      "short": "이치",
+      "emoji": "🛡️",
+      "art": "art/bld-monument.png",
+      "categories": ["history", "people"],
+      "mode": "quiz"
+    },
+    "mountain": {
+      "name": "서대산",
+      "short": "서대산",
+      "emoji": "⛰️",
+      "art": "art/bld-mountain.png",
+      "categories": ["nature"],
+      "mode": "quiz"
+    },
+    "daedun": {
+      "name": "대둔산 구름다리",
+      "short": "대둔산",
+      "emoji": "🌉",
+      "art": "art/bld-daedun.png",
+      "categories": ["nature", "safety"],
+      "mode": "quiz"
+    },
+    "river": {
+      "name": "적벽강",
+      "short": "적벽강",
+      "emoji": "🏞️",
+      "art": "art/bld-river.png",
+      "categories": ["nature", "environment"],
+      "mode": "quiz"
+    },
+    "temple": {
+      "name": "보석사",
+      "short": "보석사",
+      "emoji": "🌳",
+      "art": "art/bld-temple.png",
+      "categories": ["history", "nature"],
+      "mode": "quiz"
+    },
+    "satellite": {
+      "name": "금산위성센터",
+      "short": "위성센터",
+      "emoji": "📡",
+      "art": "art/bld-satellite.png",
+      "categories": ["society"],
+      "mode": "quiz"
+    },
+    "village": {
+      "name": "추부 깻잎마을",
+      "short": "깻잎마을",
+      "emoji": "🌿",
+      "art": "art/bld-village.png",
+      "categories": ["specialty", "environment"],
+      "mode": "quiz"
+    }
+  },
+  "tiles": [
+    { "id": 0, "type": "start", "x": 770, "y": 470, "next": [1] },
+    { "id": 1, "type": "place", "x": 600, "y": 545, "next": [2], "place": "museum" },
+    { "id": 2, "type": "chance", "x": 470, "y": 480, "next": [3] },
+    { "id": 3, "type": "place", "x": 345, "y": 405, "next": [4], "place": "shrine" },
+    { "id": 4, "type": "place", "x": 215, "y": 520, "next": [5], "place": "monument", "label": "left" },
+    { "id": 5, "type": "place", "x": 300, "y": 690, "next": [6], "place": "daedun" },
+    { "id": 6, "type": "chance", "x": 470, "y": 745, "next": [7] },
+    { "id": 7, "type": "place", "x": 640, "y": 700, "next": [8], "place": "market" },
+    { "id": 8, "type": "place", "x": 820, "y": 690, "next": [9], "place": "village" },
+    { "id": 9, "type": "rest", "x": 990, "y": 780, "next": [10] },
+    { "id": 10, "type": "place", "x": 1150, "y": 640, "next": [11], "place": "river" },
+    { "id": 11, "type": "chance", "x": 1110, "y": 500, "next": [12] },
+    { "id": 12, "type": "place", "x": 1090, "y": 360, "next": [13], "place": "satellite" },
+    { "id": 13, "type": "place", "x": 880, "y": 285, "next": [14], "place": "mountain" },
+    { "id": 14, "type": "place", "x": 650, "y": 270, "next": [15], "place": "temple" },
+    { "id": 15, "type": "rest", "x": 470, "y": 315, "next": [0] }
+  ],
+  "forks": {},
+  "startArt": "art/bld-start.png",
+  "restArt": "art/bld-rest.png",
+  "chanceArt": "art/bld-chance.png",
+  "mapArt": "art/map-base.png",
+  "pieces": [
+    { "id": "ginseng", "name": "인삼 요정", "emoji": "🌱", "art": "art/piece-ginseng.png" },
+    { "id": "perilla", "name": "깻잎", "emoji": "🍃", "art": "art/piece-perilla.png" },
+    { "id": "fish", "name": "금강 피라미", "emoji": "🐟", "art": "art/piece-fish.png" },
+    { "id": "satellite", "name": "위성 로봇", "emoji": "🤖", "art": "art/piece-satellite.png" }
+  ],
+  "guides": [
+    {
+      "name": "금이",
+      "emoji": "👧",
+      "art": {
+        "normal": "art/char-geumi-normal.png",
+        "think": "art/char-geumi-think.png",
+        "happy": "art/char-geumi-happy.png",
+        "sad": "art/char-geumi-sad.png",
+        "surprised": "art/char-geumi-surprised.png"
+      }
+    },
+    {
+      "name": "산이",
+      "emoji": "🧒",
+      "art": {
+        "normal": "art/char-sani-normal.png",
+        "think": "art/char-sani-think.png",
+        "happy": "art/char-sani-happy.png",
+        "sad": "art/char-sani-sad.png",
+        "surprised": "art/char-sani-surprised.png"
+      }
+    }
+  ]
+}
