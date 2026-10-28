@@ -5,6 +5,26 @@ import { MINIGAMES } from './minigames.js';
 const REGION = 'geumsan';
 const BASE = `${import.meta.env.BASE_URL}regions/${REGION}/`;
 const RULES = { turns: 12, hearts: 3, buses: 3, stamps: 4, quizSec: 15, correct: 10, minigame: 15, lapBonus: 5, finishBonus: 30 };
+
+// 선생님 설정: 이 기기에만 저장된다 (저장이 막힌 브라우저에서는 기본값)
+const SETTINGS_KEY = 'geumsan-marble-settings';
+const DEFAULTS = { turns: 12, hearts: 3, quizSec: 15, minigameRate: 0.5, classMin: 0 };
+const SETTING_OPTIONS = [
+  { key: 'turns', label: '턴 수', options: [[8, '8턴'], [12, '12턴'], [16, '16턴']] },
+  { key: 'hearts', label: '하트', options: [[3, '3개'], [5, '5개']] },
+  { key: 'quizSec', label: '문제 시간', options: [[15, '15초'], [20, '20초'], [30, '30초'], [0, '제한 없음']] },
+  { key: 'minigameRate', label: '미니게임', options: [[0, '끄기'], [0.5, '보통'], [0.8, '많이']] },
+  { key: 'classMin', label: '수업 시간 모드', options: [[0, '끄기'], [15, '15분'], [20, '20분'], [30, '30분'], [40, '40분']] },
+];
+let settings = { ...DEFAULTS };
+try {
+  settings = { ...DEFAULTS, ...JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}') };
+} catch {}
+function saveSettings() {
+  try {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+  } catch {}
+}
 const CATEGORY = { history: '역사', people: '인물', specialty: '특산물', nature: '자연', society: '과학·사회', environment: '환경', safety: '안전' };
 const PIPS = { 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] };
 
@@ -82,9 +102,33 @@ async function load() {
     // 종이 무늬가 없으면 CSS가 그냥 단색을 쓴다
     document.documentElement.style.setProperty('--paper', `url('${url(board.ui.paper)}')`);
     showTitle();
+    if (import.meta.env.PROD) setupOffline(board);
   } catch (err) {
     $app.innerHTML = `<div class="loading"><p>지도를 불러오지 못했어요. (${esc(err.message)})</p></div>`;
   }
+}
+
+// 오프라인 설치: 지금 쓴 파일과 board.json에 적힌 그림을 모두 미리 저장해 둔다
+async function setupOffline(board) {
+  if (!('serviceWorker' in navigator)) return;
+  try {
+    await navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`);
+    const reg = await navigator.serviceWorker.ready;
+    const arts = [
+      board.mapArt, board.startArt, board.restArt, board.chanceArt,
+      ...Object.values(board.places).map((p) => p.art),
+      ...board.pieces.map((p) => p.art),
+      ...board.guides.flatMap((g) => Object.values(g.art)),
+      ...Object.values(board.ui),
+      ...Object.values(board.minigameArt).flat(),
+    ];
+    const urls = [
+      location.origin + import.meta.env.BASE_URL,
+      ...performance.getEntriesByType('resource').map((r) => r.name),
+      ...['board.json', 'questions.json', 'facts.json', 'nicknames.json', ...arts].map((f) => new URL(url(f), location.href).href),
+    ];
+    reg.active?.postMessage({ type: 'precache', urls: [...new Set(urls)] });
+  } catch {}
 }
 
 const FLOAT_POS = [
@@ -107,6 +151,7 @@ function showTitle() {
       <p class="chip">연습 모드 · 기록은 저장되지 않아요</p>
       <button class="btn primary big-btn">화면을 눌러 시작!</button>
       <button class="mg-link" id="mgOnly">🎮 미니게임만 해 보기</button>
+      <button class="mg-link teacher-link" id="teacher">⚙️ 선생님 설정</button>
       <div class="modal-wrap" id="modal"></div>
     </div>`;
   $('.title-screen').onclick = showNickname;
@@ -115,6 +160,46 @@ function showTitle() {
     e.stopPropagation();
     practiceMinigames();
   };
+  $('#teacher').onclick = (e) => {
+    e.stopPropagation();
+    teacherSettings();
+  };
+}
+
+async function teacherSettings() {
+  const draft = { ...settings };
+  const rows = SETTING_OPTIONS.map(
+    (s) => `
+      <div class="set-row"><b>${s.label}</b><div class="seg">${s.options
+        .map(([v, label]) => `<button class="seg-btn" data-key="${s.key}" data-val="${v}">${label}</button>`)
+        .join('')}</div></div>`,
+  ).join('');
+  const v = await modal(
+    `<h2>⚙️ 선생님 설정</h2>
+     <p class="muted">이 기기에 저장돼요. 수업 시간 모드를 켜면 정한 시간이 지난 뒤 지금 턴이 끝날 때 게임이 마무리돼요.</p>
+     <div class="settings">${rows}</div>
+     <div class="row center">
+       <button class="btn ghost" data-close="reset">기본값으로</button>
+       <button class="btn ghost" data-close="">취소</button>
+       <button class="btn primary" data-close="save">저장</button>
+     </div>`,
+    'small',
+    (wrap) => {
+      const sync = () =>
+        wrap.querySelectorAll('.seg-btn').forEach((b) => b.classList.toggle('sel', Number(b.dataset.val) === draft[b.dataset.key]));
+      wrap.querySelectorAll('.seg-btn').forEach(
+        (b) =>
+          (b.onclick = () => {
+            draft[b.dataset.key] = Number(b.dataset.val);
+            sync();
+          }),
+      );
+      sync();
+    },
+  );
+  if (v === 'save') settings = draft;
+  if (v === 'reset') settings = { ...DEFAULTS };
+  if (v) saveSettings();
 }
 
 // 첫 화면에서 미니게임만 골라 연습한다 (점수·도장 없음)
@@ -220,6 +305,9 @@ function showReady() {
 
 // ---------- 게임판 ----------
 function startGame() {
+  RULES.turns = settings.turns;
+  RULES.hearts = settings.hearts;
+  RULES.quizSec = settings.quizSec;
   const placeIds = Object.keys(D.board.places);
   S = {
     tile: D.board.start,
@@ -237,6 +325,7 @@ function startGame() {
     piece: D.board.pieces.find((p) => p.id === profile.piece),
     busy: true,
     finished: false,
+    deadline: settings.classMin ? Date.now() + settings.classMin * 60000 : 0,
   };
   renderBoard();
   openIntro();
@@ -301,7 +390,8 @@ function updateHud() {
   $('#status').innerHTML = `
     <span class="hearts">${hearts}</span>
     <span class="score">${ui('score', '🪙', 'score-icon')}<span><small>점수</small><b>${S.score}</b></span></span>
-    <span class="turn">턴 ${S.turn} / ${RULES.turns}</span>`;
+    <span class="turn">턴 ${S.turn} / ${RULES.turns}</span>
+    ${S.deadline ? `<span class="clock" id="clock">⏰ ${clockText()}</span>` : ''}`;
   $('#busN').textContent = `×${S.buses}`;
   $('#dice').disabled = S.busy;
   $('#bus').disabled = S.busy || S.buses <= 0;
@@ -311,6 +401,18 @@ function updateHud() {
     el.classList.toggle('is-got', S.got.has(id));
   });
 }
+
+function clockText() {
+  const left = Math.max(0, Math.ceil((S.deadline - Date.now()) / 1000));
+  return `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+}
+const timeUp = () => S.deadline && Date.now() >= S.deadline;
+setInterval(() => {
+  const el = document.getElementById('clock');
+  if (!el || !S?.deadline) return;
+  el.textContent = `⏰ ${clockText()}`;
+  el.classList.toggle('urgent', S.deadline - Date.now() < 60000);
+}, 1000);
 
 function placePiece(id, hop = false) {
   const t = D.board.tiles[id];
@@ -468,7 +570,7 @@ async function land(fromChance = false) {
 
 function endTurn() {
   updateHud();
-  if (S.finished || S.hearts <= 0 || S.turn >= RULES.turns) {
+  if (S.finished || S.hearts <= 0 || S.turn >= RULES.turns || timeUp()) {
     showEnd();
     return;
   }
@@ -499,7 +601,8 @@ async function placeQuiz(placeId) {
   const place = D.board.places[placeId];
   const isStamp = S.stamps.includes(placeId) && !S.got.has(placeId);
   const games = place.minigames ?? [];
-  if (games.length && (place.mode === 'minigame' || (place.mode === 'quiz_or_minigame' && Math.random() < 0.5))) {
+  const rate = settings.minigameRate;
+  if (games.length && rate > 0 && (place.mode === 'minigame' || (place.mode === 'quiz_or_minigame' && Math.random() < rate))) {
     const ok = await playMinigame(pick(games), (won) => {
       if (!won) return '<p class="muted">괜찮아요, 하트는 그대로예요.</p>';
       S.score += RULES.minigame;
@@ -539,7 +642,7 @@ function askQuiz(q, where, apply) {
   const html = `
     <div class="quiz-head">
       <span class="where">${esc(where)}</span><span class="tag">${CATEGORY[q.category] ?? ''}</span>
-      <div class="timer"><i id="bar"></i><b id="sec">${RULES.quizSec}</b></div>
+      ${RULES.quizSec ? `<div class="timer"><i id="bar"></i><b id="sec">${RULES.quizSec}</b></div>` : ''}
     </div>
     <div class="quiz-q">${guideImg('think')}<div class="bubble">${esc(q.question)}</div></div>
     ${photo}
@@ -553,7 +656,8 @@ function askQuiz(q, where, apply) {
     const total = RULES.quizSec * 1000;
     const bar = wrap.querySelector('#bar');
     const sec = wrap.querySelector('#sec');
-    const timer = setInterval(() => {
+    // 문제 시간 '제한 없음'이면 타이머를 돌리지 않는다
+    const timer = total && setInterval(() => {
       const left = Math.max(0, total - (performance.now() - start));
       bar.style.width = `${(left / total) * 100}%`;
       sec.textContent = Math.ceil(left / 1000);
@@ -642,12 +746,12 @@ async function chance() {
       : { text: '홍삼 한 뿌리를 먹고 힘이 났어요!', note: '하트가 가득해서 +10점', run: () => (S.score += 10) },
     { text: '금강 바람을 타고 앞으로 날아가요!', note: '2칸 앞으로', run: async () => (await move(2), land(true)) },
     { text: '깜짝 퀴즈! 맞히면 +20점, 틀려도 하트는 그대로예요.', note: '도전!', run: () => bonusQuiz() },
-    {
+    settings.minigameRate > 0 && {
       text: '깜짝 미니게임! 성공하면 +15점이에요.',
       note: '도전!',
       run: () => playMinigame(pick(Object.keys(MINIGAMES)), (won) => (won ? ((S.score += RULES.minigame), `<p class="gain">+${RULES.minigame}점</p>`) : '')),
     },
-  ];
+  ].filter(Boolean);
   const ev = pick(events);
   await modal(
     `<div class="chance-card">${art(D.board.chanceArt, '🎁', 'chance-img')}<h2>${esc(D.board.chanceName)}</h2><p>${esc(ev.text)}</p><p class="gain">${esc(ev.note)}</p></div>
@@ -707,6 +811,9 @@ async function showEnd() {
   } else if (S.hearts <= 0) {
     title = '하트를 모두 썼어요';
     face = 'sad';
+  } else if (timeUp()) {
+    title = '수업 시간이 끝났어요';
+    face = 'surprised';
   } else {
     title = `${RULES.turns}턴이 끝났어요`;
     face = 'surprised';
