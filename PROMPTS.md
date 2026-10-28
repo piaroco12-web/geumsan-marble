@@ -3,7 +3,7 @@
 > 각 프롬프트는 공통 스타일 문장까지 들어 있는 완성본입니다. 코드 블록 오른쪽 위의 복사 버튼(GitHub·Obsidian·VS Code 미리보기)으로 복사해 ChatGPT에 그대로 붙여 넣으세요.
 > 저장 위치: `public/regions/geumsan/art/` · 파일 이름을 그대로 쓰면 게임에 바로 들어갑니다.
 
-현재 상태: 그림 47장 중 **19장 있음**, 28장 필요 (✅ 있음 · ⬜ 필요)
+현재 상태: 그림 47장 중 **36장 완료**, 4장 다시 만들기, 7장 필요 (✅ 완료 · ⚠️ 다시 만들기 · ⬜ 필요)
 
 ## 목차
 
@@ -22,34 +22,34 @@
 | ✅ | `style-anchor.png` | 기준 이미지: 금산인삼관 |
 | ✅ | `map-base.png` | 지도 바탕 (건물 없이) |
 | ✅ | `bld-market.png` | 금산 인삼약초시장 |
-| ⬜ | `bld-shrine.png` | 칠백의총 |
-| ⬜ | `bld-monument.png` | 이치대첩 유적 |
-| ⬜ | `bld-mountain.png` | 서대산 |
-| ⬜ | `bld-daedun.png` | 대둔산 구름다리 |
+| ✅ | `bld-shrine.png` | 칠백의총 |
+| ✅ | `bld-monument.png` | 이치대첩 유적 |
+| ✅ | `bld-mountain.png` | 서대산 |
+| ✅ | `bld-daedun.png` | 대둔산 구름다리 |
 | ✅ | `bld-river.png` | 적벽강 |
-| ⬜ | `bld-temple.png` | 보석사 |
-| ⬜ | `bld-satellite.png` | 금산위성센터 |
-| ⬜ | `bld-village.png` | 추부 깻잎마을 |
+| ✅ | `bld-temple.png` | 보석사 |
+| ✅ | `bld-satellite.png` | 금산위성센터 |
+| ✅ | `bld-village.png` | 추부 깻잎마을 |
 | ✅ | `bld-start.png` | 출발: 인삼축제 마당 |
-| ⬜ | `bld-rest.png` | 쉼터: 금강변 정자 |
-| ⬜ | `bld-chance.png` | 찬스: 인삼 씨앗 상자 |
+| ✅ | `bld-rest.png` | 쉼터: 금강변 정자 |
+| ✅ | `bld-chance.png` | 찬스: 인삼 씨앗 상자 |
 | ✅ | `char-geumi-normal.png` | 금이 기본 |
-| ⬜ | `char-geumi-think.png` | 금이 생각 |
-| ⬜ | `char-geumi-happy.png` | 금이 정답 |
-| ⬜ | `char-geumi-sad.png` | 금이 오답 |
-| ⬜ | `char-geumi-surprised.png` | 금이 시간 초과 |
-| ⬜ | `char-sani-normal.png` | 산이 기본 |
-| ⬜ | `char-sani-think.png` | 산이 생각 |
-| ⬜ | `char-sani-happy.png` | 산이 정답 |
-| ⬜ | `char-sani-sad.png` | 산이 오답 |
-| ⬜ | `char-sani-surprised.png` | 산이 시간 초과 |
+| ✅ | `char-geumi-think.png` | 금이 생각 |
+| ✅ | `char-geumi-happy.png` | 금이 정답 |
+| ✅ | `char-geumi-sad.png` | 금이 오답 |
+| ✅ | `char-geumi-surprised.png` | 금이 시간 초과 |
+| ✅ | `char-sani-normal.png` | 산이 기본 |
+| ⚠️ | `char-sani-think.png` | 산이 생각  (금이 그림으로 잘못 나옴 · 다시 만들기)|
+| ⚠️ | `char-sani-happy.png` | 산이 정답  (금이 그림으로 잘못 나옴 · 다시 만들기)|
+| ⚠️ | `char-sani-sad.png` | 산이 오답  (금이 그림으로 잘못 나옴 · 다시 만들기)|
+| ⚠️ | `char-sani-surprised.png` | 산이 시간 초과  (금이 그림으로 잘못 나옴 · 다시 만들기)|
 | ✅ | `piece-ginseng.png` | 인삼 요정 |
 | ✅ | `piece-perilla.png` | 깻잎 |
 | ✅ | `piece-fish.png` | 금강 피라미 |
 | ✅ | `piece-satellite.png` | 위성 로봇 |
-| ⬜ | `mg-ginseng-field.png` | 인삼 캐기: 인삼밭 배경 |
-| ⬜ | `mg-ginseng-root.png` | 인삼 캐기: 인삼 뿌리 |
-| ⬜ | `mg-card-back.png` | 짝 맞추기: 카드 뒷면 |
+| ✅ | `mg-ginseng-field.png` | 인삼 캐기: 인삼밭 배경 |
+| ✅ | `mg-ginseng-root.png` | 인삼 캐기: 인삼 뿌리 |
+| ✅ | `mg-card-back.png` | 짝 맞추기: 카드 뒷면 |
 | ⬜ | `mg-card-1.png` | 짝 맞추기: 인삼 |
 | ⬜ | `mg-card-2.png` | 짝 맞추기: 깻잎 |
 | ⬜ | `mg-card-3.png` | 짝 맞추기: 칠백의총 사당 |
@@ -172,7 +172,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 칠백의총 — `bld-shrine.png`
+### ✅ 칠백의총 — `bld-shrine.png`
 
 1024×1024 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -193,7 +193,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 이치대첩 유적 — `bld-monument.png`
+### ✅ 이치대첩 유적 — `bld-monument.png`
 
 1024×1024 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -214,7 +214,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 서대산 — `bld-mountain.png`
+### ✅ 서대산 — `bld-mountain.png`
 
 1024×1024 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -235,7 +235,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 대둔산 구름다리 — `bld-daedun.png`
+### ✅ 대둔산 구름다리 — `bld-daedun.png`
 
 1024×1024 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -277,7 +277,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 보석사 — `bld-temple.png`
+### ✅ 보석사 — `bld-temple.png`
 
 1024×1024 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -298,7 +298,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 금산위성센터 — `bld-satellite.png`
+### ✅ 금산위성센터 — `bld-satellite.png`
 
 1024×1024 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -319,7 +319,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 추부 깻잎마을 — `bld-village.png`
+### ✅ 추부 깻잎마을 — `bld-village.png`
 
 1024×1024 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -361,7 +361,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 쉼터: 금강변 정자 — `bld-rest.png`
+### ✅ 쉼터: 금강변 정자 — `bld-rest.png`
 
 1024×1024 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -382,7 +382,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 찬스: 인삼 씨앗 상자 — `bld-chance.png`
+### ✅ 찬스: 인삼 씨앗 상자 — `bld-chance.png`
 
 1024×1024 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -409,6 +409,8 @@ No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 
 ## 3. 안내 캐릭터 — 금이 · 산이
 
+> ⚠️ 산이 표정 4장(think·happy·sad·surprised)이 금이 그림으로 나왔습니다. **char-sani-normal.png(깻잎 모자 남자아이)를 첨부**하고, 프롬프트 맨 앞에 "The boy with the green perilla-leaf bucket hat, NOT the girl." 을 붙여 다시 만들어 주세요.
+
 먼저 **기본(normal)**을 만든 뒤, 표정 그림은 **그 캐릭터의 기본 그림을 첨부**해서 요청합니다. 포즈와 옷이 바뀌면 "keep exactly the same pose and outfit"을 덧붙여 다시 요청하세요.
 
 ### ✅ 금이 기본 — `char-geumi-normal.png`
@@ -432,7 +434,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 금이 생각 — `char-geumi-think.png`
+### ✅ 금이 생각 — `char-geumi-think.png`
 
 1024×1024 · 투명 배경 · 📎 `char-geumi-normal.png` 첨부
 
@@ -453,7 +455,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 금이 정답 — `char-geumi-happy.png`
+### ✅ 금이 정답 — `char-geumi-happy.png`
 
 1024×1024 · 투명 배경 · 📎 `char-geumi-normal.png` 첨부
 
@@ -474,7 +476,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 금이 오답 — `char-geumi-sad.png`
+### ✅ 금이 오답 — `char-geumi-sad.png`
 
 1024×1024 · 투명 배경 · 📎 `char-geumi-normal.png` 첨부
 
@@ -495,7 +497,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 금이 시간 초과 — `char-geumi-surprised.png`
+### ✅ 금이 시간 초과 — `char-geumi-surprised.png`
 
 1024×1024 · 투명 배경 · 📎 `char-geumi-normal.png` 첨부
 
@@ -516,7 +518,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 산이 기본 — `char-sani-normal.png`
+### ✅ 산이 기본 — `char-sani-normal.png`
 
 1024×1024 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -537,7 +539,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 산이 생각 — `char-sani-think.png`
+### ⚠️ 산이 생각 — `char-sani-think.png`
 
 1024×1024 · 투명 배경 · 📎 `char-sani-normal.png` 첨부
 
@@ -558,7 +560,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 산이 정답 — `char-sani-happy.png`
+### ⚠️ 산이 정답 — `char-sani-happy.png`
 
 1024×1024 · 투명 배경 · 📎 `char-sani-normal.png` 첨부
 
@@ -579,7 +581,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 산이 오답 — `char-sani-sad.png`
+### ⚠️ 산이 오답 — `char-sani-sad.png`
 
 1024×1024 · 투명 배경 · 📎 `char-sani-normal.png` 첨부
 
@@ -600,7 +602,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 산이 시간 초과 — `char-sani-surprised.png`
+### ⚠️ 산이 시간 초과 — `char-sani-surprised.png`
 
 1024×1024 · 투명 배경 · 📎 `char-sani-normal.png` 첨부
 
@@ -721,7 +723,7 @@ No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 
 미니게임 3종(인삼 캐기 · 깻잎 짝 맞추기 · 위성 신호 맞추기)에 쓰입니다. 모두 기준 이미지를 첨부하세요.
 
-### ⬜ 인삼 캐기: 인삼밭 배경 — `mg-ginseng-field.png`
+### ✅ 인삼 캐기: 인삼밭 배경 — `mg-ginseng-field.png`
 
 1536×1024 · 불투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -742,7 +744,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 인삼 캐기: 인삼 뿌리 — `mg-ginseng-root.png`
+### ✅ 인삼 캐기: 인삼 뿌리 — `mg-ginseng-root.png`
 
 1024×1024 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
@@ -763,7 +765,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⬜ 짝 맞추기: 카드 뒷면 — `mg-card-back.png`
+### ✅ 짝 맞추기: 카드 뒷면 — `mg-card-back.png`
 
 1024×1024 · 불투명 배경 · 📎 `style-anchor.png` 첨부
 
