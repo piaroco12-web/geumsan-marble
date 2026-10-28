@@ -17,7 +17,7 @@ Vercel에 올릴 때는 Framework를 Vite로 두면 됩니다.
 
 | 위치 | 내용 |
 |---|---|
-| `public/prompts.html` | **그림 프롬프트 복사 페이지** (`npm run dev` 후 http://localhost:5173/prompts.html). 있는 그림·필요한 그림을 자동 표시 |
+| `PROMPTS.md` | **그림 프롬프트 47장** (코드 블록 복사, 있음·필요 체크리스트) |
 | `ART_GUIDE.md` | 그림 규칙 요약, 사진 준비 안내 |
 | `src/main.js`, `src/style.css` | 게임 화면과 규칙 |
 | `src/minigames.js` | 미니게임 3종 |
@@ -49,7 +49,7 @@ Vercel에 올릴 때는 Framework를 Vite로 두면 됩니다.
 
 ## 아직 할 일
 
-- 그림: `prompts.html`에 표시된 "없음" 그림 (건물 9개, 캐릭터 표정, 미니게임 그림, 화면(UI) 그림)
+- 그림: `PROMPTS.md` 체크리스트의 ⬜ 그림 (건물 9개, 캐릭터 표정, 미니게임 그림, 화면(UI) 그림)
 - 사진 퀴즈(`type: "photo"`, `image: "photos/..."`)용 사진과 출처
 - 교사 모드, 오프라인 설치(PWA)
 
