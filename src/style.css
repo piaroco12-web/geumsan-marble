@@ -53,6 +53,15 @@ h1, h2, h3, .btn, .tile-label, .hud b, .dice b, .bus b { font-family: 'Jua', 'Pr
 .mg-link { position: absolute; bottom: 18px; right: 18px; border: 0; background: rgba(255, 250, 240, 0.92); border-radius: 999px; padding: 8px 16px; font-weight: 800; box-shadow: var(--shadow); }
 .title-screen .modal-wrap { cursor: default; }
 .teacher-link { right: auto; left: 18px; }
+.sound-toggle {
+  position: absolute; top: 18px; right: 18px; z-index: 7;
+  border: 1px solid rgba(255,255,255,.72); border-radius: 999px;
+  padding: 8px 14px; color: #fff; font-weight: 800;
+  background: rgba(31, 47, 48, .72); box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255,255,255,.35);
+  backdrop-filter: blur(6px); transition: transform .15s, background .15s;
+}
+.sound-toggle:hover { transform: translateY(-2px); background: rgba(31, 47, 48, .9); }
+.sound-toggle.off { color: #5d5143; background: rgba(255, 250, 240, .84); }
 .settings { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; text-align: left; }
 .set-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 .seg { display: flex; flex-wrap: wrap; gap: 4px; background: #efe3c8; border-radius: 12px; padding: 3px; }
@@ -185,6 +194,8 @@ span.trophy { font-size: 64px; display: block; }
 @keyframes shake { 25% { transform: rotate(-10deg); } 75% { transform: rotate(10deg); } }
 .bus:disabled, .dice:disabled { filter: grayscale(0.7); opacity: 0.7; }
 .dice:not(:disabled) .die { animation: pulse 1.6s ease-in-out infinite; }
+.game > .sound-toggle { top: auto; right: 50%; bottom: 18px; transform: translateX(50%); }
+.game > .sound-toggle:hover { transform: translate(50%, -2px); }
 
 .toast { position: absolute; z-index: 6; left: 50%; top: 22%; transform: translate(-50%, 0); background: rgba(58, 42, 28, 0.88); color: #fff; font-family: 'Jua', sans-serif; font-size: 26px; padding: 10px 24px; border-radius: 999px; opacity: 0; pointer-events: none; }
 .toast.show { animation: toast 1.6s ease-out; }

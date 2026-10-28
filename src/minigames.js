@@ -1,5 +1,5 @@
 // 미니게임은 모달 안의 root 요소에서 돌고, 성공하면 true로 끝난다.
-// ctx: { art(src, emoji, cls), url(src), mg: board.minigameArt, level: 'low' | 'high' }
+// ctx: { art(src, emoji, cls), url(src), mg: board.minigameArt, level: 'low' | 'high', audio }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const shuffle = (a) => {
   a = [...a];
@@ -85,15 +85,18 @@ function ginseng(root, ctx) {
 
     const pull = async () => {
       if (locked) return;
+      ctx.audio?.play('pull');
       locked = true;
       const ok = pos >= zoneAt && pos <= zoneAt + zone;
       if (ok) {
+        ctx.audio?.play('correct');
         hit++;
         pop(hit === NEED ? '쏙! 🎉' : '쑥!');
         $('#gRoot').style.setProperty('--up', hit / NEED);
         zone = Math.max(10, zone - 4);
         speed += 18;
       } else {
+        ctx.audio?.play('wrong');
         miss++;
         pop('앗, 끊어질 뻔!');
         root.querySelector('.mg-field').classList.add('shake');
@@ -159,12 +162,14 @@ function memory(root, ctx) {
       (c) =>
         (c.onclick = async () => {
           if (busy || c.classList.contains('open')) return;
+          ctx.audio?.play('card');
           c.classList.add('open');
           if (!first) {
             first = c;
             return;
           }
           if (first.dataset.f === c.dataset.f) {
+            ctx.audio?.play('correct');
             first.classList.add('matched');
             c.classList.add('matched');
             first = null;
@@ -173,6 +178,7 @@ function memory(root, ctx) {
             return;
           }
           busy = true;
+          ctx.audio?.play('wrong');
           await sleep(700);
           first.classList.remove('open');
           c.classList.remove('open');
@@ -248,17 +254,20 @@ function signal(root, ctx) {
       (b) =>
         (b.onclick = () => {
           if (running || queue.length >= MAX) return;
+          ctx.audio?.play('signal');
           queue.push(b.dataset.m);
           drawQueue();
         }),
     );
     $('#sDel').onclick = () => {
       if (running) return;
+      ctx.audio?.play('click');
       queue.pop();
       drawQueue();
     };
     $('#sRun').onclick = async () => {
       if (running || !queue.length) return;
+      ctx.audio?.play('minigame-start');
       running = true;
       clearTrail();
       let p = [...lv.start];

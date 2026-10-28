@@ -1,5 +1,6 @@
 import './style.css';
 import { MINIGAMES } from './minigames.js';
+import { audio } from './audio.js';
 
 // 지역 묶음만 바꾸면 다른 시군판이 된다: public/regions/<REGION>/
 const REGION = 'geumsan';
@@ -45,6 +46,39 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&l
 let D; // board, questions, facts, nicknames
 let S; // 한 판의 상태
 const profile = { nickname: '', level: 'low', piece: null };
+
+// 버튼을 새로 추가하는 화면도 자동으로 기본 클릭음을 얻는다.
+document.addEventListener(
+  'click',
+  (e) => {
+    const button = e.target.closest?.('button');
+    if (!button || button.dataset.sound === 'none') return;
+    audio.unlock();
+    audio.startBgm();
+    audio.play(button.dataset.sound || 'click');
+  },
+  true,
+);
+
+function soundToggleMarkup() {
+  return `<button class="sound-toggle" id="soundToggle" data-sound="none" aria-label="소리 켜기/끄기"></button>`;
+}
+
+function bindSoundToggle() {
+  const button = $('#soundToggle');
+  if (!button) return;
+  const sync = () => {
+    const on = audio.isEnabled();
+    button.textContent = on ? '🔊 소리 켜짐' : '🔇 소리 꺼짐';
+    button.classList.toggle('off', !on);
+  };
+  button.onclick = (e) => {
+    e.stopPropagation();
+    audio.toggle();
+    sync();
+  };
+  sync();
+}
 
 // ---------- 그림: 없으면 이모지로 대신 보여 준다 ----------
 function art(src, emoji, cls = '', fallback = '') {
@@ -152,9 +186,17 @@ function showTitle() {
       <button class="btn primary big-btn">화면을 눌러 시작!</button>
       <button class="mg-link" id="mgOnly">🎮 미니게임만 해 보기</button>
       <button class="mg-link teacher-link" id="teacher">⚙️ 선생님 설정</button>
+      ${soundToggleMarkup()}
       <div class="modal-wrap" id="modal"></div>
     </div>`;
-  $('.title-screen').onclick = showNickname;
+  bindSoundToggle();
+  $('.title-screen').onclick = (e) => {
+    if (e.target.closest('#mgOnly, #teacher, #soundToggle, .modal-wrap')) return;
+    audio.unlock();
+    audio.startBgm();
+    audio.play('start');
+    showNickname();
+  };
   $('#modal').onclick = (e) => e.stopPropagation(); // 연습 모달 안의 클릭이 '시작'으로 번지지 않게
   $('#mgOnly').onclick = (e) => {
     e.stopPropagation();
@@ -204,6 +246,8 @@ async function teacherSettings() {
 
 // 첫 화면에서 미니게임만 골라 연습한다 (점수·도장 없음)
 async function practiceMinigames() {
+  audio.unlock();
+  audio.startBgm();
   S = { guide: pick(D.board.guides) };
   for (;;) {
     const id = await modal(
@@ -305,6 +349,9 @@ function showReady() {
 
 // ---------- 게임판 ----------
 function startGame() {
+  audio.unlock();
+  audio.startBgm();
+  audio.play('start');
   RULES.turns = settings.turns;
   RULES.hearts = settings.hearts;
   RULES.quizSec = settings.quizSec;
@@ -362,11 +409,13 @@ function renderBoard() {
       <div class="hud hud-player">${art(S.piece.art, S.piece.emoji, 'hud-piece')}<div><b>${esc(profile.nickname)}</b><small>${profile.level === 'low' ? '쉬움' : '보통'}</small></div></div>
       <div class="hud hud-stamps" id="stamps"></div>
       <div class="hud hud-status" id="status"></div>
-      <button class="bus" id="bus">${ui('bus', '🚌', 'bus-icon')}<b>${esc(b.busName)}</b><i id="busN"></i></button>
-      <button class="dice" id="dice"><span class="die" id="die">${pips(1)}</span><b>주사위 굴리기</b></button>
+      <button class="bus" id="bus" data-sound="bus">${ui('bus', '🚌', 'bus-icon')}<b>${esc(b.busName)}</b><i id="busN"></i></button>
+      <button class="dice" id="dice" data-sound="dice"><span class="die" id="die">${pips(1)}</span><b>주사위 굴리기</b></button>
+      ${soundToggleMarkup()}
       <div class="toast" id="toast"></div>
       <div class="modal-wrap" id="modal"></div>
     </div>`;
+  bindSoundToggle();
   $('#dice').onclick = rollTurn;
   $('#bus').onclick = busTurn;
   placePiece(S.tile);
@@ -442,6 +491,7 @@ function modal(html, cls = '', onMount) {
     const wrap = $('#modal');
     wrap.innerHTML = `<div class="modal ${cls}">${html}</div>`;
     wrap.classList.add('open');
+    audio.play('modal');
     const done = (v) => {
       wrap.classList.remove('open');
       wrap.innerHTML = '';
@@ -482,11 +532,13 @@ async function rollTurn() {
   let n = 1;
   die.classList.add('rolling');
   for (let i = 0; i < 10; i++) {
+    audio.play('dice-roll');
     n = 1 + Math.floor(Math.random() * 6);
     die.innerHTML = pips(n);
     await sleep(55 + i * 14);
   }
   die.classList.remove('rolling');
+  audio.play('dice');
   toast(`${n}칸 앞으로!`);
   await sleep(350);
   await move(n);
@@ -511,6 +563,7 @@ async function busTurn() {
     'intro',
   );
   if (!choice) return;
+  audio.play('bus');
   S.busy = true;
   S.buses--;
   updateHud();
@@ -542,6 +595,7 @@ async function move(steps) {
     const next = t.next.length > 1 ? await chooseFork(t) : t.next[0];
     S.tile = next;
     placePiece(next, true);
+    audio.play('step');
     await sleep(280);
     if (next === b.start && reachStart()) return; // 도장을 다 모으고 돌아오면 바로 끝
   }
@@ -551,6 +605,7 @@ async function move(steps) {
 function reachStart() {
   if (S.got.size === S.stamps.length) {
     S.finished = true;
+    audio.play('finish');
     return true;
   }
   S.score += RULES.lapBonus;
@@ -608,6 +663,7 @@ async function placeQuiz(placeId) {
       S.score += RULES.minigame;
       if (isStamp) {
         S.got.add(placeId);
+        audio.play('stamp');
         return `<div class="stamp-big">${place.emoji}<b>도장 쾅!</b></div><p class="gain">+${RULES.minigame}점 · 오늘의 도장을 받았어요</p>`;
       }
       return `<p class="gain">+${RULES.minigame}점</p>`;
@@ -622,6 +678,7 @@ async function placeQuiz(placeId) {
       S.correct++;
       if (isStamp) {
         S.got.add(placeId);
+        audio.play('stamp');
         return `<div class="stamp-big">${place.emoji}<b>도장 쾅!</b></div><p class="gain">+${RULES.correct}점 · 오늘의 도장을 받았어요</p>`;
       }
       return `<p class="gain">+${RULES.correct}점</p>`;
@@ -665,6 +722,7 @@ function askQuiz(q, where, apply) {
     }, 100);
 
     wrap.querySelector('#hint').onclick = (e) => {
+      audio.play('hint');
       S.hints--;
       e.currentTarget.disabled = true;
       const wrong = shuffle([...wrap.querySelectorAll('.choice')].filter((b) => Number(b.dataset.c) !== q.answer));
@@ -676,6 +734,7 @@ function askQuiz(q, where, apply) {
     function finish(r, btn) {
       if (ended) return;
       ended = true;
+      audio.play(r === 'correct' ? 'correct' : r === 'wrong' ? 'wrong' : 'timeout');
       clearInterval(timer);
       wrap.querySelectorAll('.choice').forEach((b) => {
         b.disabled = true;
@@ -713,9 +772,11 @@ function playMinigame(id, apply, place) {
     'quiz minigame',
     (wrap, done) => {
       wrap.querySelector('#mgStart').onclick = async () => {
+        audio.play('minigame-start');
         const area = wrap.querySelector('#mgArea');
-        const ctx = { art, url, mg: D.board.minigameArt, level: profile.level };
+        const ctx = { art, url, mg: D.board.minigameArt, level: profile.level, audio };
         const won = await mg.run(area, ctx);
+        audio.play(won ? 'win' : 'lose');
         const extra = apply(won);
         const res = wrap.querySelector('#result');
         res.innerHTML = `
