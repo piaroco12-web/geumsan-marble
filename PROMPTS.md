@@ -3,9 +3,9 @@
 > 각 프롬프트는 공통 스타일 문장까지 들어 있는 완성본입니다. 코드 블록 오른쪽 위의 복사 버튼(GitHub·Obsidian·VS Code 미리보기)으로 복사해 ChatGPT에 그대로 붙여 넣으세요.
 > 저장 위치: `public/regions/geumsan/art/` · 파일 이름을 그대로 쓰면 게임에 바로 들어갑니다.
 
-현재 상태: 그림 47장 중 **42장 완료**, 5장 다시 만들기, 0장 필요 (✅ 완료 · ⚠️ 다시 만들기 · ⬜ 필요)
+현재 상태: 그림 47장 중 **47장 완료** (✅ 완료 · ⚠️ 다시 만들기 · ⬜ 필요)
 
-2026-10-28 확인: `board.json`이 참조하는 그림 파일은 모두 있습니다. 다만 ⚠️ 5장은 내용이 잘못되어 다시 만들어야 합니다 → [`GPT_다시만들기.md`](GPT_다시만들기.md)
+2026-10-28 확인: 47장 모두 게임 화면에서 확인했습니다. 다시 만든 5장(산이 표정 4, 가득 찬 하트)도 반영했습니다.
 
 ## 목차
 
@@ -41,10 +41,10 @@
 | ✅ | `char-geumi-sad.png` | 금이 오답 |
 | ✅ | `char-geumi-surprised.png` | 금이 시간 초과 |
 | ✅ | `char-sani-normal.png` | 산이 기본 |
-| ⚠️ | `char-sani-think.png` | 산이 생각 (금이 그림으로 잘못 나옴 · 다시 만들기) |
-| ⚠️ | `char-sani-happy.png` | 산이 정답 (금이 그림으로 잘못 나옴 · 다시 만들기) |
-| ⚠️ | `char-sani-sad.png` | 산이 오답 (금이 그림으로 잘못 나옴 · 다시 만들기) |
-| ⚠️ | `char-sani-surprised.png` | 산이 시간 초과 (금이 그림으로 잘못 나옴 · 다시 만들기) |
+| ✅ | `char-sani-think.png` | 산이 생각 |
+| ✅ | `char-sani-happy.png` | 산이 정답 |
+| ✅ | `char-sani-sad.png` | 산이 오답 |
+| ✅ | `char-sani-surprised.png` | 산이 시간 초과 |
 | ✅ | `piece-ginseng.png` | 인삼 요정 |
 | ✅ | `piece-perilla.png` | 깻잎 |
 | ✅ | `piece-fish.png` | 금강 피라미 |
@@ -61,7 +61,7 @@
 | ✅ | `mg-block.png` | 위성 신호: 산 장애물 |
 | ✅ | `ui-title-bg.png` | 첫 화면 배경 |
 | ✅ | `ui-bus.png` | 금산 버스 아이콘 |
-| ⚠️ | `ui-heart.png` | 하트 (가득) (빈 하트와 모양이 다름 · 다시 만들기) |
+| ✅ | `ui-heart.png` | 하트 (가득) |
 | ✅ | `ui-heart-empty.png` | 하트 (빈칸) |
 | ✅ | `ui-score.png` | 점수 아이콘 |
 | ✅ | `ui-hint.png` | 힌트 아이콘 |
@@ -411,8 +411,6 @@ No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 
 ## 3. 안내 캐릭터 — 금이 · 산이
 
-> ⚠️ 산이 표정 4장(think·happy·sad·surprised)이 금이 그림으로 나왔습니다. **char-sani-normal.png(깻잎 모자 남자아이)를 첨부**하고, 프롬프트 맨 앞에 "The boy with the green perilla-leaf bucket hat, NOT the girl." 을 붙여 다시 만들어 주세요.
-
 먼저 **기본(normal)**을 만든 뒤, 표정 그림은 **그 캐릭터의 기본 그림을 첨부**해서 요청합니다. 포즈와 옷이 바뀌면 "keep exactly the same pose and outfit"을 덧붙여 다시 요청하세요.
 
 ### ✅ 금이 기본 — `char-geumi-normal.png`
@@ -541,7 +539,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⚠️ 산이 생각 — `char-sani-think.png`
+### ✅ 산이 생각 — `char-sani-think.png`
 
 1024×1024 · 투명 배경 · 📎 `char-sani-normal.png` 첨부
 
@@ -562,7 +560,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⚠️ 산이 정답 — `char-sani-happy.png`
+### ✅ 산이 정답 — `char-sani-happy.png`
 
 1024×1024 · 투명 배경 · 📎 `char-sani-normal.png` 첨부
 
@@ -583,7 +581,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⚠️ 산이 오답 — `char-sani-sad.png`
+### ✅ 산이 오답 — `char-sani-sad.png`
 
 1024×1024 · 투명 배경 · 📎 `char-sani-normal.png` 첨부
 
@@ -604,7 +602,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⚠️ 산이 시간 초과 — `char-sani-surprised.png`
+### ✅ 산이 시간 초과 — `char-sani-surprised.png`
 
 1024×1024 · 투명 배경 · 📎 `char-sani-normal.png` 첨부
 
@@ -985,7 +983,7 @@ Clean, bright, friendly, for elementary school children.
 No text, no letters, no numbers, no signs with writing, no logos, no watermark.
 ```
 
-### ⚠️ 하트 (가득) — `ui-heart.png`
+### ✅ 하트 (가득) — `ui-heart.png`
 
 512×512 · 투명 배경 · 📎 `style-anchor.png` 첨부
 
